@@ -1,0 +1,34 @@
+server:
+  port : 8081
+
+#============================================================================
+# SPRING
+#============================================================================
+spring:
+  application:
+    name: sts-api
+#  profiles:
+#    active : prod
+  datasource:
+    driver-class-name : com.mysql.cj.jdbc.Driver
+    url : jdbc:mysql://${db.host}:${db.port}/${db.name}?autoReconnect=${db.auto-reconnect}&useSSL=${db.ssl}&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username : ${db.username}
+    password : ${db.password}
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+      dialect : org.hibernate.dialect.MySQL5Dialect
+      ddl-auto : validate     # Hibernate ddl auto (create, create-drop, validate, update)
+
+#============================================================================
+# DATABASE
+#============================================================================
+db:
+  name : spring_thymeleaf_scaffolding
+  host : localhost
+  port : 3306
+  username : root
+  password : P@ssw0rd
+  auto-reconnect : true
+  ssl : false
