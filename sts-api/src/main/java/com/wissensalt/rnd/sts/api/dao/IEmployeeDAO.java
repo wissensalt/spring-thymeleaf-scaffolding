@@ -5,7 +5,6 @@ import com.wissensalt.rnd.sts.shared.data.model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -15,6 +14,6 @@ import java.util.List;
  */
 public interface IEmployeeDAO extends JpaRepository<Employee, Long> {
 
-    @Query("SELECT new com.wissensalt.rnd.sts.shared.data.dto.response.ResponseEmployeeDTO(e.id, e.code, e.name, e.remarks, e.salary, e.department) FROM Employee e")
+    @Query("SELECT new com.wissensalt.rnd.sts.shared.data.dto.response.ResponseEmployeeDTO(e.id, e.code, e.name, e.remarks, e.salary, e.department.id, e.department.code, e.department.name, e.department.remarks) FROM Employee e")
     List<ResponseEmployeeDTO> findAllEmployee();
 }
