@@ -1,10 +1,15 @@
 server:
   port : 8080
+  tomcat:
+    apr:
+      enabled: true
 
 spring:
+#  mvc:
+#    static-path-pattern: /resources/**
   thymeleaf:
     cache: false
-    mode: HTML5
+    mode: HTML
     templates_root: sts-web/src/main/resources/templates/
   devtools:
     restart:

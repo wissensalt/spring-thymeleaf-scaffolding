@@ -8,7 +8,7 @@
     </parent>
     <artifactId>sts-web</artifactId>
     <packaging>jar</packaging>
-        <dependencies>
+    <dependencies>
         <dependency>
             <groupId>com.wissensalt.rnd</groupId>
             <artifactId>sts-shared-data</artifactId>
@@ -23,6 +23,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>nz.net.ultraq.thymeleaf</groupId>
+            <artifactId>thymeleaf-layout-dialect</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
