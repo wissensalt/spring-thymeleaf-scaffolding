@@ -16,17 +16,14 @@ import java.util.List;
  * @author <a href="mailto:fauzi.knightmaster.achmad@gmail.com">Achmad Fauzi</a>
  */
 @RestController
-@RequestMapping("/department")
+@RequestMapping("/api/department")
 public class DepartmentEndPoint {
 
     @Autowired
     private IDepartmentDAO departmentDAO;
 
-    @Autowired
-    private DepartmentMapper departmentMapper;
-
     @GetMapping("/findAll")
     public List<ResponseDepartmentDTO> findAll() {
-        return departmentMapper.toDepartmentDTO(departmentDAO.findAll());
+        return departmentDAO.findAllDepartment();
     }
 }

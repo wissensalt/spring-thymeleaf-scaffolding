@@ -1,6 +1,5 @@
 package com.wissensalt.rnd.sts.shared.data.dto.response;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,8 +21,6 @@ public class ResponseEmployeeDTO implements Serializable {
     private String name;
     private String remarks;
     private Double salary;
-
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private ResponseDepartmentDTO department;
 
     public ResponseEmployeeDTO(Long id, String code, String name, String remarks, Double salary, Long departmentId, String departmentCode, String departmentName, String departmentRemarks) {

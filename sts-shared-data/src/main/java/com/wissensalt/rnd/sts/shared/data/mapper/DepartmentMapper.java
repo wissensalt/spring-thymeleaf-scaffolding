@@ -27,4 +27,4 @@ public abstract class DepartmentMapper {
     public abstract ResponseDepartmentDTO toDepartmentDTO(Department department);
 
     public abstract List<ResponseDepartmentDTO> toDepartmentDTO(List<Department> departments);
-}
+    }

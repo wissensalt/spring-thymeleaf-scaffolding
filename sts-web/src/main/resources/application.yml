@@ -1,0 +1,24 @@
+server:
+  port : 8080
+
+spring:
+  thymeleaf:
+    cache: false
+    mode: HTML5
+    templates_root: sts-web/src/main/resources/templates/
+  devtools:
+    restart:
+      enabled : true
+
+logging:
+  level:
+    #    web : DEBUG
+    com:
+      wissensalt:
+        rnd:
+          slr:
+            web:
+              feign: DEBUG
+
+api:
+  base-path : http://localhost:8081
