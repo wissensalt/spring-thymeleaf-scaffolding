@@ -27,3 +27,13 @@ logging:
 
 api:
   base-path : http://localhost:8081
+
+web :
+  head :
+    title : Spring
+    subtitle : Thymeleaf Scaffolding
+  footer :
+    version : 1.0.0
+    year-range : 2019-2020
+    link : https://wissensalt.wordpress.com/
+    link-text : Wissensalt

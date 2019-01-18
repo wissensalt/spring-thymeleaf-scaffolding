@@ -1,24 +1,31 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head lang="en">
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
     <meta name="description" content="login form">
     <meta name="author" content="Achmad Fauzi" />
-    <title>Spring Thymeleaf Scaffolding</title>
-    <div layout:insert="~{base/header/header-script :: header-script}"></div>
+    <title th:text="${webTitle} + '-' +${webSubtitle}" />
+    <head layout:replace="~{base/header/header-script :: header-script}"></head>
 </head>
 
+<!--Main Body-->
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-    <header class="main-header">
-        <a href="index2.html" class="logo">
-            <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>A</b>LT</span>
-            <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>Admin</b>LTE</span>
-        </a>
-    </header>
+    <!--Main Header-->
+    <header layout:replace="~{base/header/main-header :: main-header}"></header>
+    <aside layout:insert="~{base/sidebar/main-sidebar :: main-sidebar}"></aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <section layout:replace="~{base/content/content-header}" />
+        <section layout:replace="~{base/content/content}" />
+    </div>
+
+    <!--Footer-->
+    <header layout:replace="~{base/footer/footer :: footer}"></header>
 </div>
 </body>
 <div layout:insert="~{base/footer/footer-script :: footer-script}"></div>

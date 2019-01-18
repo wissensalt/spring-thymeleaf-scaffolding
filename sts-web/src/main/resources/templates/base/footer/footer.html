@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<footer class="main-footer" layout:fragment="footer">
+    <div class="pull-right hidden-xs" >
+        <b>Version</b> <span th:text="${version}"/>
+    </div>
+    <strong>Copyright &copy; <span th:text="${yearRange}"/> <a th:href="${link}" th:text="${linkText}">Wissensalt</a>.</strong> All rights
+    reserved.
+</footer>
+</html>

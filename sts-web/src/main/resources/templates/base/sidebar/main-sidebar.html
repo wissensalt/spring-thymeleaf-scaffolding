@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<aside class="main-sidebar" layout:fragment="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu" data-widget="tree">
+            <li>
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-database"></i>
+                    <span>Master Data</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="pages/charts/chartjs.html"><i class="fa fa-users"></i> Employee</a></li>
+                    <li><a href="pages/charts/chartjs.html"><i class="fa fa-building-o"></i> Department</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-laptop"></i>
+                    <span>Administration</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="pages/UI/general.html"><i class="fa fa-users"></i> User</a></li>
+                    <li><a href="pages/UI/icons.html"><i class="fa fa-cog"></i> Role</a></li>
+                    <li><a href="pages/UI/buttons.html"><i class="fa fa-bars"></i> Menu Assignment</a></li>
+                    <li><a href="pages/UI/sliders.html"><i class="fa fa-share"></i> Branch</a></li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>
+</html>
