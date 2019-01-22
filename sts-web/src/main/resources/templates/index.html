@@ -7,7 +7,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
     <meta name="description" content="login form">
     <meta name="author" content="Achmad Fauzi" />
-    <title th:text="${webTitle} + '-' +${webSubtitle}" />
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE" />
     <head layout:replace="~{base/header/header-script :: header-script}"></head>
 </head>
 

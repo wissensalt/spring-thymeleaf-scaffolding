@@ -1,7 +1,9 @@
-package com.wissensalt.rnd.sts.web.feign;
+package com.wissensalt.rnd.sts.web.feign.impl;
 
 import com.wissensalt.rnd.sts.shared.data.dto.response.RequestRegisterDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDataDTO;
+import com.wissensalt.rnd.sts.web.feign.FeignBuilderFactory;
+import com.wissensalt.rnd.sts.web.feign.IRegisterClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 

@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 >
 <!-- Content Header (Page header) -->
 <section class="content-header" layout:fragment="content-header">
-    <h1>
+    <h1 layout:fragment="page-title-subtitle">
         Dashboard
-        <small>Control panel</small>
+        <!--<small>Control panel</small>-->
     </h1>
-    <ol class="breadcrumb">
+    <ol class="breadcrumb" layout:fragment="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Dashboard</li>
     </ol>

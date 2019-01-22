@@ -1,9 +1,11 @@
-package com.wissensalt.rnd.sts.web.feign;
+package com.wissensalt.rnd.sts.web.feign.impl;
 
 import com.wissensalt.rnd.sts.shared.data.dto.response.RequestFindByNameDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.RequestLoginDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponsePrincipalDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseUserDTO;
+import com.wissensalt.rnd.sts.web.feign.FeignBuilderFactory;
+import com.wissensalt.rnd.sts.web.feign.ILoginClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 

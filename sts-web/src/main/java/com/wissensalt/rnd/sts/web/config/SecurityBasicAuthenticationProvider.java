@@ -6,7 +6,7 @@ import com.wissensalt.rnd.sts.shared.data.dto.response.ResponsePrincipalDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseUserDTO;
 import com.wissensalt.rnd.sts.shared.data.model.Role;
 import com.wissensalt.rnd.sts.shared.data.model.User;
-import com.wissensalt.rnd.sts.web.feign.LoginClientImpl;
+import com.wissensalt.rnd.sts.web.feign.impl.LoginClientImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 >
 <header class="main-header" layout:fragment="main-header">
-    <a href="index2.html" class="logo">
+    <a th:href="@{/}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>S</b>TS</span>
         <!-- logo for regular state and mobile devices -->

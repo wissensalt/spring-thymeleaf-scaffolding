@@ -25,16 +25,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/login/**", "/").permitAll()
-                .antMatchers("/admin*").hasRole("ADMIN")
+                .antMatchers("/login/**").permitAll()
+                .antMatchers("/secured/**").hasRole("ADMIN")
                 .and()
                     .formLogin()
-                    .loginPage("/")
-                    .defaultSuccessUrl("/admin")
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/secured/dashboard")
                 .and()
                     .logout()
                     .logoutUrl("/logout/perform")
-                    .logoutSuccessUrl("/")
+                    .logoutSuccessUrl("/login")
                 .and().csrf().disable();
     }
 

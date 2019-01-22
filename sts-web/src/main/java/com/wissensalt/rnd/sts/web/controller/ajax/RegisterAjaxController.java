@@ -1,8 +1,8 @@
-package com.wissensalt.rnd.sts.web.controller;
+package com.wissensalt.rnd.sts.web.controller.ajax;
 
 import com.wissensalt.rnd.sts.shared.data.dto.response.RequestRegisterDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDataDTO;
-import com.wissensalt.rnd.sts.web.feign.RegisterClientImpl;
+import com.wissensalt.rnd.sts.web.feign.impl.RegisterClientImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

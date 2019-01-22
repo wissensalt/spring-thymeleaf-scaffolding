@@ -3,6 +3,7 @@ package com.wissensalt.rnd.sts.web.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * Created on 1/21/19.
@@ -10,11 +11,12 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @author <a href="mailto:fauzi.knightmaster.achmad@gmail.com">Achmad Fauzi</a>
  */
 @Controller
-public class LoginController implements ISimplePage {
+@RequestMapping("/secured/dashboard")
+public class DashboardController implements ISimplePage {
 
-    @GetMapping("/login")
+    @GetMapping("")
     @Override
     public String display(Model p_Model) {
-        return "/page/login";
+        return "/page/dashboard";
     }
 }
