@@ -30,4 +30,9 @@ public class SessionUtil {
         session.removeAttribute("userName");
         session.removeAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY);
     }
+
+    public static String getBasicAuth(HttpServletRequest p_HttpServletRequest) {
+        HttpSession session = p_HttpServletRequest.getSession(true);
+        return (String) session.getAttribute("basicAuth");
+    }
 }

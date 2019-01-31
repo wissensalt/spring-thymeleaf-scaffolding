@@ -6,15 +6,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.thymeleaf.ThymeleafProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.thymeleaf.templateresolver.FileTemplateResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
+@ComponentScan("com.wissensalt.rnd.sts.web")
 @SpringBootApplication
 public class STSWebApplication {
-
-    public static void main(String [] args) {
-        SpringApplication.run(STSWebApplication.class);
-    }
 
     @Autowired
     private ThymeleafProperties properties;
@@ -29,6 +27,11 @@ public class STSWebApplication {
         resolver.setPrefix(templatesRoot);
         resolver.setTemplateMode(properties.getMode());
         resolver.setCacheable(properties.isCache());
+        resolver.addTemplateAlias("content", "templates/content");
+        resolver.addTemplateAlias("content-header", "templates/content/content-header");
         return resolver;
+    }
+    public static void main(String [] args) {
+        SpringApplication.run(STSWebApplication.class);
     }
 }

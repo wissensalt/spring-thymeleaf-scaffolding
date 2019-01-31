@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 >
 <!-- Content Header (Page header) -->
@@ -8,9 +9,14 @@
         Dashboard
         <!--<small>Control panel</small>-->
     </h1>
-    <ol class="breadcrumb" layout:fragment="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+    <ol class="breadcrumb" th:fragment="breadcrumb">
+        <li>
+            <a href="#" th:text="${breadCrumbTitle}">
+                <i class="fa fa-dashboard"></i> Home
+            </a>
+        </li>
+        <li class="active" th:text="${breadCrumbSubTitle}">Dashboard</li>
     </ol>
+
 </section>
 </html>

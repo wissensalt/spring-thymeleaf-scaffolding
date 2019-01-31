@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        >
+<table class="table table-bordered table-hover dataTable" role="grid" th:fragment="scaffolding-table">
+    <!--LOV ROW NUM-->
+    <thead>
+    <tr role="row">
+        <th:block th:each="header : ${tableHeaders}">
+            <th class="sorting text-center font-weight-bold" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" th:text="${header}">Header</th>
+        </th:block>
+        <th class="sorting text-center font-weight-bold">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr role="row" th:each="item, index: ${items.content}" th:class="${index}">
+        <td class="sorting_1" th:text="${item.id}">Department Id</td>
+        <td th:text="${item.code}">Department Code</td>
+        <td th:text="${item.name}">Department Name</td>
+        <td th:text="${item.remarks}">Department Remarks</td>
+        <td class="text-center">
+            <button class="btn btn-info btn-xs btnView" data-toggle="tooltip" data-placement="top" title="view" th:value="${item.id}">
+                <i class="fa fa-eye"></i>
+            </button>
+            <button class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="top" title="edit">
+                <i class="fa fa-pencil"></i>
+            </button>
+            <button class="btn btn-danger btn-xs btnDelete" data-toggle="tooltip" data-placement="top" title="delete" th:onclick="'deleteCrud(\'' +${item.id} +'\')'">
+                <i class="fa fa-trash"></i>
+            </button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</html>

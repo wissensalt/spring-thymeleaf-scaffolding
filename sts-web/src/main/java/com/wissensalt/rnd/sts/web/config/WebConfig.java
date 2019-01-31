@@ -1,6 +1,5 @@
 package com.wissensalt.rnd.sts.web.config;
 
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -14,7 +13,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.wissensalt.rnd.sts.web")
 public class WebConfig implements WebMvcConfigurer {
 
     @Override

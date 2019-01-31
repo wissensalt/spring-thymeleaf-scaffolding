@@ -2,21 +2,15 @@
 <html
         xmlns:th="http://www.thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head lang="en">
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
-    <meta name="description" content="login form">
-    <meta name="author" content="Achmad Fauzi" />
-    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE" />
-    <head layout:replace="~{base/header/header-script :: header-script}"></head>
-</head>
+<head lang="en" layout:replace="~{base/header/header-script :: header-script}"></head>
 
 <!--Main Body-->
 <body class="hold-transition skin-blue sidebar-mini">
+<!--<div class="fakeloader"></div>-->
 <div class="wrapper">
     <!--Main Header-->
     <header layout:replace="~{base/header/main-header :: main-header}"></header>
-    <aside layout:insert="~{base/sidebar/main-sidebar :: main-sidebar}"></aside>
+    <aside layout:replace="~{base/sidebar/main-sidebar :: main-sidebar}"></aside>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -25,7 +19,7 @@
     </div>
 
     <!--Footer-->
-    <header layout:replace="~{base/footer/footer :: footer}"></header>
+    <footer layout:replace="~{base/footer/footer :: footer}"></footer>
 </div>
 </body>
 <div layout:insert="~{base/footer/footer-script :: footer-script}"></div>

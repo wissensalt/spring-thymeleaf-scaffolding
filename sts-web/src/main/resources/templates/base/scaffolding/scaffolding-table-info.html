@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="row" th:fragment="scaffolding-table-info">
+    <div class="col-sm-12">
+        <div class="row">
+            <!--SCAFFOLDING PAGINATION INFO-->
+            <div class="col-sm-5" th:include="~{base/scaffolding/scaffolding-pagination-info :: scaffolding-pagination-info}"></div>
+            <!--SCAFFOLDING PAGE NAVIGATION-->
+            <div class="col-sm-7" th:include="~{base/scaffolding/scaffolding-page-navigation :: scaffolding-page-navigation}"></div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+</div>
+</html>

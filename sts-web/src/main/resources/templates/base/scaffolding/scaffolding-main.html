@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{index.html}"
+      th:with="
+        breadCrumbTitle=${breadCrumbTitle},
+        breadCrumbSubTitle=${breadCrumbSubTitle},
+        scaffoldingHeaderTitle=${scaffoldingHeaderTitle},
+        scaffoldingCreateLink=${scaffoldingCreateLink}
+        "
+        >
+<head>
+    <title th:text="${headTitle}">STS - Dashboard</title>
+</head>
+<h1 layout:fragment="page-title-subtitle" th:text="${pageTitle}">
+    Master Data
+    <small th:text="${pageSubTitle}">Scaffolding</small>
+</h1>
+<section class="content" layout:fragment="content">
+    <div id="alertInsertInfo" style="display: none;" th:text="${alert}"></div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-default">
+                <div class="box-header with-border" th:include="~{base/scaffolding/scaffolding-header :: scaffolding-header}"></div>
+                <div class="box-header with-border" th:include="~{base/scaffolding/scaffolding-form-inquiry :: scaffolding-form-inquiry}"></div>
+                <div class="box-body contentTable" >
+                    <div class="dataTables_wrapper form-inline dt-bootstrap">
+                        <div class="row" th:include="~{base/scaffolding/scaffolding-lov-show-number :: scaffolding-lov-show-number}"></div>
+                        <table class="table table-bordered table-hover dataTable" role="grid" th:include="~{base/scaffolding/scaffolding-table :: scaffolding-table}"></table>
+                        <div th:include="~{base/scaffolding/scaffolding-table-info :: scaffolding-table-info}"></div>
+                    </div>
+                </div>
+            </div>
+</section>
+</html>

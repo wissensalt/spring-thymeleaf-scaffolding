@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="index.html"
+        >
+
+<form class="form-horizontal formInsert" action="#" th:action="${actionLink}" th:method="POST" th:object="${requestFormVUI}" th:fragment="form-vui">
+    <div class="col-md-6">
+        <div class="box-body">
+            <div class="form-group" th:fragment="form-input-text" th:switch="${item.itemInput.type}" th:each="item: ${formGroup}">
+
+                <label th:for="${item.itemInput.id}" class="col-sm-2 control-label" th:text="${item.itemLabel.text}">Label</label>
+
+                <div class="col-sm-10" th:case="'text'">
+                    <div>
+                        <input type="text" th:class="${item.itemInput.className}" th:id="${item.itemInput.id}" th:placeholder="${item.itemInput.placeHolder}"  th:required="${item.itemInput.required}" th:name="${item.itemInput.fieldName}">
+                    </div>
+                </div>
+                <div class="col-sm-10" th:case="'textarea'">
+                    <div>
+                        <textarea th:class="${item.itemInput.className}" th:id="${item.itemInput.id}" th:placeholder="${item.itemInput.placeHolder}"  th:required="${item.itemInput.required}" th:name="${item.itemInput.fieldName}" th:rows="${item.itemInput.rows}" th:cols="${item.itemInput.cols}"></textarea>
+                    </div>
+                </div>
+                <div class="col-sm-offset-2 col-sm-10" th:case="'checkbox'">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" th:name="${item.itemInput.fieldName}" th:checked="${requestFormVUI.status}"> Status
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <a class="btn btn-default" onclick="resetForm()">
+                    <i class="fa fa-eraser"></i> Reset
+                </a>
+                <button type="submit" class="btn btn-info pull-right btnSave">
+                    <i class="fa fa-floppy-o"></i> Save
+                </button>
+            </div>
+        </div>
+</form>
+</html>

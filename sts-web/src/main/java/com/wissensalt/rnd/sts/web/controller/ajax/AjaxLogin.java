@@ -25,12 +25,12 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping("/login")
-public class LoginAjaxController {
+public class AjaxLogin {
 
     @Autowired
     private AuthenticationManager authManager;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LoginAjaxController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AjaxLogin.class);
 
     @PostMapping("/perform")
     public ResponseDataDTO performLogin(HttpServletRequest httpServletRequest, @RequestBody RequestLoginDTO requestLoginDTO) {

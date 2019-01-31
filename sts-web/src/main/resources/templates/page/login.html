@@ -25,8 +25,15 @@
 
     <!-- Google Font -->
     <link rel="stylesheet" th:href="@{/static/css/fonts/google-fonts-login.css}">
+
+    <!--FAKE LOADER-->
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/fakeloader/fakeLoader.css}">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/pace/pace.css}">
+    <script th:src="@{/static/js/pace.min.js}"></script>
 </head>
 <body class="hold-transition login-page">
+<div id="fakeLoaderLogin"></div>
 <div class="login-box">
     <div class="login-logo">
         <a th:href="@{/}"><b>Admin</b>LTE</a>
@@ -62,5 +69,11 @@
 <!-- Bootstrap 3.3.7 -->
 <script th:src="@{/static/js/bootstrap.min.js}"></script>
 <script th:src="@{/static/js/app.js}"></script>
+
+<!--FAKE LOADER-->
+<!--<script th:src="@{/static/js/fakeLoader.min.js}"></script>-->
+
+<!--SWEET ALERT-->
+<script th:src="@{/static/js/sweetalert2.all.min.js}"></script>
 </body>
 </html>

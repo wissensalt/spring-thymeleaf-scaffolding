@@ -1,5 +1,6 @@
 package com.wissensalt.rnd.sts.shared.data.mapper;
 
+import com.wissensalt.rnd.sts.shared.data.dto.request.RequestInsertDepartmentDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDepartmentDTO;
 import com.wissensalt.rnd.sts.shared.data.model.Department;
 import org.mapstruct.Mapper;
@@ -27,4 +28,15 @@ public abstract class DepartmentMapper {
     public abstract ResponseDepartmentDTO toDepartmentDTO(Department department);
 
     public abstract List<ResponseDepartmentDTO> toDepartmentDTO(List<Department> departments);
-    }
+
+    @Mappings({
+            @Mapping(target = "id", ignore = true),
+            @Mapping(target = "code", source = "department.code"),
+            @Mapping(target = "name", source = "department.name"),
+            @Mapping(target = "remarks", source = "department.remarks"),
+            @Mapping(target = "status", source = "department.status"),
+            @Mapping(target = "employees", ignore = true)
+    })
+    public abstract Department requestToDepartment(RequestInsertDepartmentDTO department);
+
+}

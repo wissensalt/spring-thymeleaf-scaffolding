@@ -3,6 +3,13 @@
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 >
 <head layout:fragment="header-script">
+
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+    <meta name="description" content="login form">
+    <meta name="author" content="Achmad Fauzi" />
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE" />
+
     <!--BOOTSTRAP-->
     <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap/bootstrap.min.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap/bootstrap-datepicker.min.css}" />
@@ -28,5 +35,12 @@
 
     <!--CUSTOM-->
     <link rel="stylesheet" type="text/css" th:href="@{/static/css/custom/app.css}">
+
+    <!--FAKE LOADER-->
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/fakeloader/fakeLoader.css}">
+
+    <!--PACE-->
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/pace/pace.css}">
+    <script th:src="@{/static/js/pace.min.js}"></script>
 </head>
 </html>
