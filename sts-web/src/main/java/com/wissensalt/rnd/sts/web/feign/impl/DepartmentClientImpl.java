@@ -53,4 +53,10 @@ public class DepartmentClientImpl implements IScaffoldingClient<RequestInsertDep
         IDepartmentClient departmentClient = FeignBuilderFactory.createClient(IDepartmentClient.class, apiBasePath);
         return departmentClient.view("Basic " + p_BasicAuth, p_Id);
     }
+
+    @Override
+    public ResponseDataDTO update(String p_BasicAuth, ResponseDepartmentDTO p_RequestUpdateDepartmentDTO) {
+        IDepartmentClient departmentClient = FeignBuilderFactory.createClient(IDepartmentClient.class, apiBasePath);
+        return departmentClient.update("Basic " + p_BasicAuth, p_RequestUpdateDepartmentDTO);
+    }
 }

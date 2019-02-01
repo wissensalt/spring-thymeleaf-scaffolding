@@ -64,6 +64,17 @@ public class DepartmentEndPoint {
         return departmentMapper.toDepartmentDTO(departmentDAO.findById(p_Id).get());
     }
 
+    @PostMapping("/update")
+    public ResponseDataDTO update(@RequestBody ResponseDepartmentDTO p_ResponseDepartmentDTO){
+        Department department = departmentDAO.findById(p_ResponseDepartmentDTO.getId()).get();
+        department.setCode(p_ResponseDepartmentDTO.getCode());
+        department.setName(p_ResponseDepartmentDTO.getName());
+        department.setRemarks(p_ResponseDepartmentDTO.getRemarks());
+        department.setStatus(p_ResponseDepartmentDTO.getStatus());
+        departmentDAO.save(department);
+        return success();
+    }
+
     private ResponseDataDTO success() {
         return new ResponseDataDTO("200", "Success");
     }

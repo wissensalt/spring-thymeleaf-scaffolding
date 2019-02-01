@@ -2,6 +2,7 @@ package com.wissensalt.rnd.sts.web.controller;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,5 +22,8 @@ public interface IScaffoldingPage {
     String displayInsertForm(Model p_Model);
 
     @GetMapping("/viewForm")
-    String displayViewForm(Model p_Model, HttpServletRequest p_HttpServletRequest);
+    String displayViewForm(Model p_Model, HttpServletRequest p_HttpServletRequest, @RequestParam("id") Long p_Id);
+
+    @GetMapping("/updateForm")
+    String displayUpdateForm(Model p_Model, HttpServletRequest p_HttpServletRequest, @RequestParam("id") Long p_Id);
 }

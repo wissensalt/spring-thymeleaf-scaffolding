@@ -34,7 +34,11 @@ public interface IDepartmentClient {
     @RequestLine("POST /api/department/insert")
     ResponseDataDTO insert(@Param("auth") String p_BasicAuth, RequestInsertDepartmentDTO p_RequestInsertDepartmentDTO);
 
-    @Headers({"Accept: application/json", "Content-Type: application/json"})
+    @Headers({"Accept: application/json", "Content-Type: application/json", "Authorization: {auth}"})
     @RequestLine("GET /api/department/view?id={id}")
-    ResponseDepartmentDTO view(@Param("auth") String p_BasicAuth, @Param(value = "id") Long p_Id);
+    ResponseDepartmentDTO view(@Param("auth") String p_BasicAuth, @Param("id") Long p_Id);
+
+    @Headers({"Accept: application/json", "Content-Type: application/json", "Authorization: {auth}"})
+    @RequestLine("POST /api/department/update")
+    ResponseDataDTO update(@Param("auth") String p_BasicAuth, ResponseDepartmentDTO p_ResponseDepartmentDTO);
 }

@@ -1,9 +1,6 @@
 package com.wissensalt.rnd.sts.shared.data.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -12,6 +9,7 @@ import java.io.Serializable;
  *
  * @author <a href="mailto:fauzi.knightmaster.achmad@gmail.com">Achmad Fauzi</a>
  */
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -22,4 +20,5 @@ public class ResponseDepartmentDTO implements Serializable {
     private String code;
     private String name;
     private String remarks;
+    private Boolean status;
 }

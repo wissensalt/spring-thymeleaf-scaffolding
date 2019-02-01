@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{index.html}"
+      th:with="
+        breadCrumbTitle=${breadCrumbTitle},
+        breadCrumbSubTitle=${breadCrumbSubTitle},
+        scaffoldingHeaderTitle=${scaffoldingHeaderTitle},
+        ">
+
+<head>
+    <title th:text="${headTitle}">STS - Dashboard</title>
+</head>
+<h1 layout:fragment="page-title-subtitle" th:text="${pageTitle}">
+    Master Data
+    <small th:text="${pageSubTitle}">Scaffolding</small>
+</h1>
+<section class="content" layout:fragment="content">
+    <div class="box col-md-12">
+        <!-- Horizontal Form -->
+        <div class="box-header with-border" th:include="~{base/scaffolding/form-vui/scaffolding-form-vui-header :: scaffolding-form-vui-header}"></div>
+        <!-- form start -->
+        <div layout:fragment="form-vu">
+            <form class="form-horizontal formViewUpdate" action="#" th:action="${actionLink}" th:method="POST" th:object="${requestFormVUI}"></form>
+        </div>
+        <!-- /.box -->
+    </div>
+</section>
+</html>

@@ -23,14 +23,14 @@ public class ResponseEmployeeDTO implements Serializable {
     private Double salary;
     private ResponseDepartmentDTO department;
 
-    public ResponseEmployeeDTO(Long id, String code, String name, String remarks, Double salary, Long departmentId, String departmentCode, String departmentName, String departmentRemarks) {
+    public ResponseEmployeeDTO(Long id, String code, String name, String remarks, Double salary, Long departmentId, String departmentCode, String departmentName, String departmentRemarks, Boolean departmentStatus) {
         this.id = id;
         this.code = code;
         this.name = name;
         this.remarks = remarks;
         this.salary = salary;
 
-        this.department = new ResponseDepartmentDTO(departmentId, departmentCode, departmentName, departmentRemarks);
+        this.department = new ResponseDepartmentDTO(departmentId, departmentCode, departmentName, departmentRemarks, departmentStatus);
     }
 
     public ResponseEmployeeDTO(Long id, String code, String name, String remarks, Double salary) {

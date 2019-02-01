@@ -14,6 +14,6 @@ import java.util.List;
  */
 public interface IDepartmentDAO extends JpaRepository<Department, Long> {
 
-    @Query("SELECT new com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDepartmentDTO(d.id, d.code, d.name, d.remarks) from Department d")
+    @Query("SELECT new com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDepartmentDTO(d.id, d.code, d.name, d.remarks, d.status) from Department d")
     List<ResponseDepartmentDTO> findAllDepartment();
 }

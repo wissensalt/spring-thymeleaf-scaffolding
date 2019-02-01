@@ -114,8 +114,13 @@ $('.btnCreate').on('click', function(e) {
 
 $('.btnView').on('click', function(e) {
     e.preventDefault();
-    //var linkText = $(this).attr('href');
-    var linkText = '/secured/department/viewForm';
+    var linkText = '/secured/department/viewForm?id='+$(this).attr('value');
+    $('.content').load(linkText + ' .content');
+});
+
+$('.btnUpdate').on('click', function(e) {
+    e.preventDefault();
+    var linkText = '/secured/department/updateForm?id='+$(this).attr('value');
     $('.content').load(linkText + ' .content');
 });
 
@@ -127,8 +132,6 @@ $('.btnBack').on('click', function(e) {
 });
 
 function resetForm() {
-    alert('clicked');
-    console.log('rest');
     $(".formInsert").trigger('reset');
 }
 

@@ -24,4 +24,6 @@ public interface IScaffoldingClient<REQUEST, RESPONSE> {
     ResponseDataDTO insert(String p_BasicAuth, REQUEST p_Request);
 
     RESPONSE view(String p_BasicAuth, Long p_Id);
+
+    ResponseDataDTO update(String p_BasicAuth, RESPONSE p_UpdateDTO);
 }

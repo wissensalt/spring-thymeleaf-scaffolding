@@ -1,6 +1,7 @@
 package com.wissensalt.rnd.sts.web.controller.department;
 
 import com.wissensalt.rnd.sts.shared.data.dto.request.RequestInsertDepartmentDTO;
+import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDepartmentDTO;
 import com.wissensalt.rnd.sts.web.SessionUtil;
 import com.wissensalt.rnd.sts.web.controller.AScaffoldingPage;
 import com.wissensalt.rnd.sts.web.feign.impl.DepartmentClientImpl;
@@ -24,7 +25,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/secured/department")
-public class DepartmentController extends AScaffoldingPage<RequestInsertDepartmentDTO> {
+public class DepartmentController extends AScaffoldingPage<RequestInsertDepartmentDTO, ResponseDepartmentDTO> {
 
     @Autowired
     private DepartmentClientImpl departmentClient;
@@ -33,6 +34,13 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
     public RedirectView processInsert(HttpServletRequest p_HttpServletRequest, @ModelAttribute(value = "requestInsertDTO") RequestInsertDepartmentDTO p_Request, RedirectAttributes redirectAttributes) {
         departmentClient.insert(SessionUtil.getBasicAuth(p_HttpServletRequest), p_Request);
         redirectAttributes.addFlashAttribute("alert", "Success Insert");
+        return new RedirectView(getRedirectIndexPage());
+    }
+
+    @Override
+    public RedirectView processUpdate(HttpServletRequest p_HttpServletRequest, @ModelAttribute(value = "requestFormVU") ResponseDepartmentDTO p_Request, RedirectAttributes redirectAttributes) {
+        departmentClient.update(SessionUtil.getBasicAuth(p_HttpServletRequest), p_Request);
+        redirectAttributes.addFlashAttribute("alert", "Success Update");
         return new RedirectView(getRedirectIndexPage());
     }
 
@@ -53,7 +61,12 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
 
     @Override
     public String getDisplayInsert() {
-        return "/page/department/department-vui";
+        return "/page/department/department-insert";
+    }
+
+    @Override
+    public String getDisplayView() {
+        return "/page/department/department-vu";
     }
 
     @Override
@@ -102,8 +115,13 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
     }
 
     @Override
-    public String getActionLink() {
+    public String getInsertLink() {
         return "/secured/department/processInsert";
+    }
+
+    @Override
+    public String getUpdateLink() {
+        return "/secured/department/processUpdate";
     }
 
     @Override
@@ -138,20 +156,6 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
         groupName.setItemLabel(labelName);
         groupName.setItemInput(txtName);
 
-        FormGroupInputText groupTest = new FormGroupInputText();
-        InputText inputTest = new InputText();
-        inputTest.setId("idTest");
-        inputTest.setClassName("form-control");
-        inputTest.setFieldName("test");
-        inputTest.setPlaceHolder("Test");
-        inputTest.setRequired(true);
-
-        Label labelTest = new Label();
-        labelTest.setText("Test");
-
-        groupTest.setItemLabel(labelTest);
-        groupTest.setItemInput(inputTest);
-
         FormGroupTextArea groupRemarks = new FormGroupTextArea();
         InputTextArea txtRemarks  = new InputTextArea();
         txtRemarks.setId("idRemarks");
@@ -173,15 +177,25 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
         checkboxStatus.setChecked(true);
         groupStatus.setItemInput(checkboxStatus);
 
-        Label labelStatus = new Label();
-        labelCode.setText("Status");
-        groupStatus.setItemLabel(labelStatus);
+        groupStatus.setItemLabel(null);
 
         result.add(groupCode);
         result.add(groupName);
-        result.add(groupTest);
         result.add(groupRemarks);
         result.add(groupStatus);
+        return result;
+    }
+
+    @Override
+    public List<Object> getFormButtons() {
+        List<Object> result = new ArrayList<>();
+        ButtonReset buttonReset = new ButtonReset();
+        buttonReset.setText("Reset");
+        ButtonSubmit buttonSubmit = new ButtonSubmit();
+        buttonSubmit.setText("Save");
+
+        result.add(buttonReset);
+        result.add(buttonSubmit);
         return result;
     }
 

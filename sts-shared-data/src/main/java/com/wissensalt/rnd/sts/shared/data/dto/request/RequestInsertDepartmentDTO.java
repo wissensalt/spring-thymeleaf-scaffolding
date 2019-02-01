@@ -15,7 +15,6 @@ import java.io.Serializable;
 public class RequestInsertDepartmentDTO implements Serializable {
     private String code;
     private String name;
-    private String test;
     private String remarks;
     private Boolean status;
 }

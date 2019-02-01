@@ -23,7 +23,8 @@ public abstract class DepartmentMapper {
             @Mapping(target = "id", source = "department.id"),
             @Mapping(target = "code", source = "department.code"),
             @Mapping(target = "name", source = "department.name"),
-            @Mapping(target = "remarks", source = "department.remarks")
+            @Mapping(target = "remarks", source = "department.remarks"),
+            @Mapping(target = "status", source = "department.status")
     })
     public abstract ResponseDepartmentDTO toDepartmentDTO(Department department);
 
