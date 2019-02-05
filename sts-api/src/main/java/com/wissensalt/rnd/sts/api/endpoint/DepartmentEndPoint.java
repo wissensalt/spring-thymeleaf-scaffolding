@@ -6,6 +6,7 @@ import com.wissensalt.rnd.sts.shared.data.dto.request.RequestInsertDepartmentDTO
 import com.wissensalt.rnd.sts.shared.data.dto.request.RequestPaginationDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDataDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDepartmentDTO;
+import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseLOVDTO;
 import com.wissensalt.rnd.sts.shared.data.mapper.DepartmentMapper;
 import com.wissensalt.rnd.sts.shared.data.model.Department;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +74,17 @@ public class DepartmentEndPoint {
         department.setStatus(p_ResponseDepartmentDTO.getStatus());
         departmentDAO.save(department);
         return success();
+    }
+
+
+    @GetMapping("/selectLOV")
+    public List<ResponseLOVDTO> selectLOV() {
+        return departmentDAO.selectLOV();
+    }
+
+    @GetMapping("/count")
+    public ResponseDataDTO countNumberOfEntity() {
+        return new ResponseDataDTO("200", String.valueOf(departmentDAO.count()));
     }
 
     private ResponseDataDTO success() {

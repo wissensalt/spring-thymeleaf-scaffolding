@@ -1,5 +1,6 @@
 package com.wissensalt.rnd.sts.shared.data.mapper;
 
+import com.wissensalt.rnd.sts.shared.data.dto.request.RequestInsertEmployeeDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseEmployeeDTO;
 import com.wissensalt.rnd.sts.shared.data.model.Employee;
 import org.mapstruct.Mapper;
@@ -28,4 +29,15 @@ public abstract class EmployeeMapper {
     public abstract ResponseEmployeeDTO toEmployeeDTO(Employee employee);
 
     public abstract List<ResponseEmployeeDTO> toEmployeeDTO(List<Employee> employees);
+
+    @Mappings({
+            @Mapping(target = "code", source = "employee.code"),
+            @Mapping(target = "name", source = "employee.name"),
+            @Mapping(target = "remarks", source = "employee.remarks"),
+            @Mapping(target = "salary", source = "employee.salary"),
+            @Mapping(target = "status", source = "employee.status"),
+            @Mapping(target = "department", ignore = true),
+            @Mapping(target = "id", ignore = true)
+    })
+    public abstract Employee requestToDepartment(RequestInsertEmployeeDTO employee);
 }

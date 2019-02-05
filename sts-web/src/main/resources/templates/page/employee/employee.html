@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{base/scaffolding/scaffolding-main.html}"
+      xmlns:th="http://www.thymeleaf.org"
         >
+
 <th:block th:each="field : ${item}" layout:fragment="table-definition">
     <td th:text="${field.code}">Dataset Field</td>
     <td th:text="${field.name}">Dataset Field</td>
     <td th:text="${field.remarks}">Dataset Field</td>
+    <td th:text="${field.salary}">Dataset Field</td>
 </th:block>
 </html>

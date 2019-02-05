@@ -1,10 +1,12 @@
-package com.wissensalt.rnd.sts.web.controller.department;
+package com.wissensalt.rnd.sts.web.controller.employee;
 
-import com.wissensalt.rnd.sts.shared.data.dto.request.RequestInsertDepartmentDTO;
-import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDepartmentDTO;
+import com.wissensalt.rnd.sts.shared.data.dto.request.RequestInsertEmployeeDTO;
+import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseEmployeeDTO;
+import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseLOVDTO;
 import com.wissensalt.rnd.sts.web.SessionUtil;
 import com.wissensalt.rnd.sts.web.controller.AScaffoldingPage;
 import com.wissensalt.rnd.sts.web.feign.impl.DepartmentClientImpl;
+import com.wissensalt.rnd.sts.web.feign.impl.EmployeeClientImpl;
 import com.wissensalt.rnd.sts.web.webcomponent.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,22 +26,25 @@ import java.util.List;
  * @author <a href="mailto:fauzi.knightmaster.achmad@gmail.com">Achmad Fauzi</a>
  */
 @Controller
-@RequestMapping("/secured/department")
-public class DepartmentController extends AScaffoldingPage<RequestInsertDepartmentDTO, ResponseDepartmentDTO> {
+@RequestMapping("/secured/employee")
+public class EmployeeController extends AScaffoldingPage<RequestInsertEmployeeDTO, ResponseEmployeeDTO> {
+
+    @Autowired
+    private EmployeeClientImpl employeeClient;
 
     @Autowired
     private DepartmentClientImpl departmentClient;
 
     @Override
-    public RedirectView processInsert(HttpServletRequest p_HttpServletRequest, @ModelAttribute(value = "requestInsertDTO") RequestInsertDepartmentDTO p_Request, RedirectAttributes redirectAttributes) {
-        departmentClient.insert(SessionUtil.getBasicAuth(p_HttpServletRequest), p_Request);
+    public RedirectView processInsert(HttpServletRequest p_HttpServletRequest, @ModelAttribute(value = "requestInsertDTO") RequestInsertEmployeeDTO p_Request, RedirectAttributes redirectAttributes) {
+        employeeClient.insert(SessionUtil.getBasicAuth(p_HttpServletRequest), p_Request);
         redirectAttributes.addFlashAttribute("alert", "Success Insert");
         return new RedirectView(getRedirectIndexPage());
     }
 
     @Override
-    public RedirectView processUpdate(HttpServletRequest p_HttpServletRequest, @ModelAttribute(value = "requestFormVU") ResponseDepartmentDTO p_Request, RedirectAttributes redirectAttributes) {
-        departmentClient.update(SessionUtil.getBasicAuth(p_HttpServletRequest), p_Request);
+    public RedirectView processUpdate(HttpServletRequest p_HttpServletRequest, @ModelAttribute(value = "requestFormVU") ResponseEmployeeDTO p_Request, RedirectAttributes redirectAttributes) {
+        employeeClient.update(SessionUtil.getBasicAuth(p_HttpServletRequest), p_Request);
         redirectAttributes.addFlashAttribute("alert", "Success Update");
         return new RedirectView(getRedirectIndexPage());
     }
@@ -51,32 +56,33 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
             add("code");
             add("name");
             add("remarks");
+            add("salary");
         }};
     }
 
     @Override
     public String getEntityName() {
-        return "department";
+        return "employee";
     }
 
     @Override
     public String getDisplayIndex() {
-        return "/page/department/department";
+        return "/page/employee/employee";
     }
 
     @Override
     public String getDisplayInsert() {
-        return "/page/department/department-insert";
+        return "/page/employee/employee-insert";
     }
 
     @Override
     public String getDisplayView() {
-        return "/page/department/department-vu";
+        return "/page/employee/employee-vu";
     }
 
     @Override
     public String getRedirectIndexPage() {
-        return "/secured/department";
+        return "/secured/employee";
     }
 
     @Override
@@ -86,27 +92,27 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
 
     @Override
     public String getBreadCrumbSubTitle() {
-        return "Scaffolding";
+        return "Employee";
     }
 
     @Override
     public String getScaffoldingHeaderTitle() {
-        return "DEPARTMENT";
+        return "EMPLOYEE";
     }
 
     @Override
     public String getScaffoldingCreateLink() {
-        return "/secured/department/insertForm";
+        return "/secured/employee/insertForm";
     }
 
     @Override
     public String getScaffoldingBackLink() {
-        return "/secured/department/";
+        return "/secured/employee";
     }
 
     @Override
     public String getHeadTitle() {
-        return "STS - Department";
+        return "STS - Employee";
     }
 
     @Override
@@ -121,22 +127,22 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
 
     @Override
     public String getInsertLink() {
-        return "/secured/department/processInsert";
+        return "/secured/employee/processInsert";
     }
 
     @Override
     public String getUpdateLink() {
-        return "/secured/department/processUpdate";
+        return "/secured/employee/processUpdate";
     }
 
     @Override
-    public ResponseDepartmentDTO getSingleObjectResponse(String p_BasicAuth, Long p_Id) {
-        return (ResponseDepartmentDTO) scaffoldingClient.view(p_BasicAuth, p_Id);
+    public ResponseEmployeeDTO getSingleObjectResponse(String p_BasicAuth, Long p_Id) {
+        return (ResponseEmployeeDTO) scaffoldingClient.view(p_BasicAuth, p_Id);
     }
 
     @Override
-    public RequestInsertDepartmentDTO getSingleObjectRequest() {
-        RequestInsertDepartmentDTO request = new RequestInsertDepartmentDTO();
+    public RequestInsertEmployeeDTO getSingleObjectRequest() {
+        RequestInsertEmployeeDTO request = new RequestInsertEmployeeDTO();
         request.setStatus(true);
         return request;
     }
@@ -146,6 +152,7 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
         List<Object> result = new ArrayList<>();
 
         FormGroupInputText groupCode = new FormGroupInputText();
+        groupCode.setHasId(true);
         InputText txtCode = new InputText();
         txtCode.setId("idCode");
         txtCode.setClassName("form-control");
@@ -160,6 +167,7 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
         groupCode.setItemInput(txtCode);
 
         FormGroupInputText groupName = new FormGroupInputText();
+        groupName.setHasId(true);
         InputText txtName = new InputText();
         txtName.setId("idName");
         txtName.setClassName("form-control");
@@ -173,7 +181,25 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
         groupName.setItemLabel(labelName);
         groupName.setItemInput(txtName);
 
+        /*NUMBER SALARY*/
+        FormGroupInputNumber groupSalary = new FormGroupInputNumber();
+        groupSalary.setHasId(true);
+        InputNumber txtSalary = new InputNumber();
+        txtSalary.setId("idSalary");
+        txtSalary.setClassName("form-control");
+        txtSalary.setFieldName("salary");
+        txtSalary.setPlaceHolder("Salary");
+        txtSalary.setRequired(true);
+
+        Label labelSalary = new Label();
+        labelSalary.setText("Salary");
+
+        groupSalary.setItemLabel(labelSalary);
+        groupSalary.setItemInput(txtSalary);
+        /*NUMBER*/
+
         FormGroupTextArea groupRemarks = new FormGroupTextArea();
+        groupRemarks.setHasId(true);
         InputTextArea txtRemarks  = new InputTextArea();
         txtRemarks.setId("idRemarks");
         txtRemarks.setClassName("form-control");
@@ -188,7 +214,28 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
         groupRemarks.setItemInput(txtRemarks);
         groupRemarks.setItemLabel(labelRemarks);
 
+        /*LOV*/
+        FormGroupLOV groupLOV = new FormGroupLOV();
+        groupLOV.setHasId(false);
+        groupLOV.setFieldName("departmentId");
+        groupLOV.setClassName("form-control");
+        List<ResponseLOVDTO> responseLOVDTOs = departmentClient.selectLOV(p_BasicAuth);
+        List<LOV> listLovDepartment = new ArrayList<>();
+        for (ResponseLOVDTO responseLOVDTO : responseLOVDTOs) {
+            LOV lovDepartment  = new LOV();
+            lovDepartment.setLovContent(responseLOVDTO);
+            listLovDepartment.add(lovDepartment);
+        }
+
+        Label labelLovDepartment = new Label();
+        labelLovDepartment.setText("Department");
+
+        groupLOV.setItemInput(listLovDepartment);
+        groupLOV.setItemLabel(labelLovDepartment);
+        /*LOV*/
+
         FormGroupCheckBox groupStatus = new FormGroupCheckBox();
+        groupStatus.setHasId(false);
         InputCheckBox checkboxStatus = new InputCheckBox();
         checkboxStatus.setFieldName("status");
         checkboxStatus.setChecked(true);
@@ -199,6 +246,8 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
 
         result.add(groupCode);
         result.add(groupName);
+        result.add(groupLOV);
+        result.add(groupSalary);
         result.add(groupRemarks);
         result.add(groupStatus);
         return result;
@@ -220,6 +269,6 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
     @PostConstruct
     @Override
     public void initPage() {
-        scaffoldingClient = departmentClient;
+        scaffoldingClient = employeeClient;
     }
 }

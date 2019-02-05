@@ -12,13 +12,7 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class InputText implements Serializable {
-
-    @Builder.Default
-    private String type = "text";
     private String id;
     private String className;
     private String placeHolder;

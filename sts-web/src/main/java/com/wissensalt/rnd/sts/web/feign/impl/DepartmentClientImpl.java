@@ -4,6 +4,7 @@ import com.wissensalt.rnd.sts.shared.data.dto.request.RequestInsertDepartmentDTO
 import com.wissensalt.rnd.sts.shared.data.dto.request.RequestPaginationDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDataDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDepartmentDTO;
+import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseLOVDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponsePaginationDTO;
 import com.wissensalt.rnd.sts.web.feign.FeignBuilderFactory;
 import com.wissensalt.rnd.sts.web.feign.IDepartmentClient;
@@ -58,5 +59,17 @@ public class DepartmentClientImpl implements IScaffoldingClient<RequestInsertDep
     public ResponseDataDTO update(String p_BasicAuth, ResponseDepartmentDTO p_RequestUpdateDepartmentDTO) {
         IDepartmentClient departmentClient = FeignBuilderFactory.createClient(IDepartmentClient.class, apiBasePath);
         return departmentClient.update("Basic " + p_BasicAuth, p_RequestUpdateDepartmentDTO);
+    }
+
+    @Override
+    public List<ResponseLOVDTO> selectLOV(String p_BasicAuth) {
+        IDepartmentClient departmentClient = FeignBuilderFactory.createClient(IDepartmentClient.class, apiBasePath);
+        return departmentClient.selectLOV("Basic " + p_BasicAuth);
+    }
+
+    @Override
+    public ResponseDataDTO count(String p_BasicAuth) {
+        IDepartmentClient departmentClient = FeignBuilderFactory.createClient(IDepartmentClient.class, apiBasePath);
+        return departmentClient.count("Basic " + p_BasicAuth);
     }
 }

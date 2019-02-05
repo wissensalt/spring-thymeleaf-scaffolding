@@ -1,6 +1,9 @@
 package com.wissensalt.rnd.sts.web.webcomponent;
 
+
 import lombok.*;
+
+import java.io.Serializable;
 
 /**
  * Created on 1/29/19.
@@ -9,12 +12,11 @@ import lombok.*;
  */
 @Getter
 @Setter
-public class InputTextArea {
+public class InputNumber implements Serializable {
+
     private String id;
     private String className;
     private String placeHolder;
     private Boolean required;
     private String fieldName;
-    private String rows;
-    private String cols;
 }

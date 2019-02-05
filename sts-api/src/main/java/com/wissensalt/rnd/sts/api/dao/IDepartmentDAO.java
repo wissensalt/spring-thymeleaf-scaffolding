@@ -1,6 +1,7 @@
 package com.wissensalt.rnd.sts.api.dao;
 
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDepartmentDTO;
+import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseLOVDTO;
 import com.wissensalt.rnd.sts.shared.data.model.Department;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,4 +17,7 @@ public interface IDepartmentDAO extends JpaRepository<Department, Long> {
 
     @Query("SELECT new com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDepartmentDTO(d.id, d.code, d.name, d.remarks, d.status) from Department d")
     List<ResponseDepartmentDTO> findAllDepartment();
+
+    @Query("SELECT new com.wissensalt.rnd.sts.shared.data.dto.response.ResponseLOVDTO(d.id, d.name) FROM Department d")
+    List<ResponseLOVDTO> selectLOV();
 }

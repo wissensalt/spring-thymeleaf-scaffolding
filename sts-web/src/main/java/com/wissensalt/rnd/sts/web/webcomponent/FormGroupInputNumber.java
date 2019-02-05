@@ -14,11 +14,11 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FormGroupCheckBox implements Serializable {
-
+public class FormGroupInputNumber implements Serializable {
+    
     @Builder.Default
-    private String type = "checkbox";
+    private String type = "number";
     private Label itemLabel;
-    private InputCheckBox itemInput;
+    private InputNumber itemInput;
     private Boolean hasId;
 }

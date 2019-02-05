@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Created on 1/21/19.
  *
@@ -14,7 +16,7 @@ public class LoginController implements ISimplePage {
 
     @GetMapping("/login")
     @Override
-    public String display(Model p_Model) {
+    public String display(Model p_Model, HttpServletRequest p_HttpServletRequest) {
         return "/page/login";
     }
 }

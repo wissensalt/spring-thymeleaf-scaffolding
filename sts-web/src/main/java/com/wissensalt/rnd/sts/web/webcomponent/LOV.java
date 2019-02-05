@@ -1,20 +1,17 @@
 package com.wissensalt.rnd.sts.web.webcomponent;
 
+import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseLOVDTO;
 import lombok.*;
 
 import java.io.Serializable;
 
 /**
- * Created on 1/29/19.
+ * Created on 2/5/19.
  *
  * @author <a href="mailto:fauzi.knightmaster.achmad@gmail.com">Achmad Fauzi</a>
  */
 @Getter
 @Setter
-public class InputCheckBox implements Serializable {
-
-    private String fieldName;
-    private Boolean checked;
-    private String id;
-    private String stickyLabel;
+public class LOV implements Serializable {
+    private ResponseLOVDTO lovContent;
 }

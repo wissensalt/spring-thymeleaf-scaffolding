@@ -1,8 +1,6 @@
 package com.wissensalt.rnd.sts.web.controller;
 
-import com.wissensalt.rnd.sts.shared.data.dto.request.RequestInsertDepartmentDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.request.RequestPaginationDTO;
-import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDepartmentDTO;
 import com.wissensalt.rnd.sts.web.feign.IScaffoldingClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,14 +28,8 @@ public abstract class AScaffoldingPage<REQUEST, REQUEST_UPDATE> implements IScaf
 
     @Override
     public String displayIndex(Model p_Model, HttpServletRequest p_HttpServletRequest) {
-        p_Model.addAttribute("headTitle", getHeadTitle());
-        p_Model.addAttribute("pageTitle", getPageTitle());
-        p_Model.addAttribute("pageSubTitle", getPageSubtitle());
-        p_Model.addAttribute("breadCrumbTitle", getBreadCrumbTitle());
-        p_Model.addAttribute("breadCrumbSubTitle", getBreadCrumbSubTitle());
-        p_Model.addAttribute("scaffoldingHeaderTitle", getScaffoldingHeaderTitle());
+        setBasicModelAttributes(p_Model, null);
         p_Model.addAttribute("scaffoldingCreateLink", getScaffoldingCreateLink());
-
         p_Model.addAttribute("tableHeaders", getTableColumns());
 
         RequestPaginationDTO paginationDTO = new RequestPaginationDTO();
@@ -49,26 +41,22 @@ public abstract class AScaffoldingPage<REQUEST, REQUEST_UPDATE> implements IScaf
         HttpSession session = p_HttpServletRequest.getSession(true);
         String basicAuth = (String) session.getAttribute("basicAuth");
 
+        p_Model.addAttribute("entityName", getEntityName());
         p_Model.addAttribute("items", scaffoldingClient.conductFindPagination(basicAuth, paginationDTO));
         return getDisplayIndex();
     }
 
     @Override
-    public String displayInsertForm(Model p_Model) {
-        RequestInsertDepartmentDTO request = new RequestInsertDepartmentDTO();
-        request.setStatus(true);
-        p_Model.addAttribute("headTitle", getHeadTitle());
-        p_Model.addAttribute("pageTitle", getPageTitle());
-        p_Model.addAttribute("pageSubTitle", getPageSubtitle());
-        p_Model.addAttribute("breadCrumbTitle", getBreadCrumbTitle());
-        p_Model.addAttribute("breadCrumbSubTitle", getBreadCrumbSubTitle());
-        p_Model.addAttribute("scaffoldingHeaderTitle", getScaffoldingHeaderTitle().concat(" | NEW"));
+    public String displayInsertForm(Model p_Model, HttpServletRequest p_HttpServletRequest) {
+        HttpSession session = p_HttpServletRequest.getSession(true);
+        String basicAuth = (String) session.getAttribute("basicAuth");
+
+        setBasicModelAttributes(p_Model, "NEW");
         p_Model.addAttribute("scaffoldingBackLink", getScaffoldingBackLink());
         p_Model.addAttribute("actionLink", getInsertLink());
-        p_Model.addAttribute("formGroup", getFormGroup());
+        p_Model.addAttribute("formGroup", getFormGroup(basicAuth));
         p_Model.addAttribute("formButtons", getFormButtons());
-        p_Model.addAttribute("requestInsertDTO", request);
-        p_Model.addAttribute("requestFormVUI", request);
+        p_Model.addAttribute("requestFormVUI", getSingleObjectRequest());
         return getDisplayInsert();
     }
 
@@ -77,16 +65,10 @@ public abstract class AScaffoldingPage<REQUEST, REQUEST_UPDATE> implements IScaf
         HttpSession session = p_HttpServletRequest.getSession(true);
         String basicAuth = (String) session.getAttribute("basicAuth");
 
-        ResponseDepartmentDTO request = (ResponseDepartmentDTO) scaffoldingClient.view(basicAuth, p_Id);
-        p_Model.addAttribute("headTitle", getHeadTitle());
-        p_Model.addAttribute("pageTitle", getPageTitle());
-        p_Model.addAttribute("pageSubTitle", getPageSubtitle());
-        p_Model.addAttribute("breadCrumbTitle", getBreadCrumbTitle());
-        p_Model.addAttribute("breadCrumbSubTitle", getBreadCrumbSubTitle());
-        p_Model.addAttribute("scaffoldingHeaderTitle", getScaffoldingHeaderTitle().concat(" | VIEW"));
+        setBasicModelAttributes(p_Model, "VIEW");
         p_Model.addAttribute("scaffoldingBackLink", getScaffoldingBackLink());
-        p_Model.addAttribute("formGroup", getFormGroup());
-        p_Model.addAttribute("requestFormVU", request);
+        p_Model.addAttribute("formGroup", getFormGroup(basicAuth));
+        p_Model.addAttribute("requestFormVU", getSingleObjectResponse(basicAuth, p_Id));
         p_Model.addAttribute("viewMode", true);
         return getDisplayView();
     }
@@ -96,17 +78,11 @@ public abstract class AScaffoldingPage<REQUEST, REQUEST_UPDATE> implements IScaf
         HttpSession session = p_HttpServletRequest.getSession(true);
         String basicAuth = (String) session.getAttribute("basicAuth");
 
-        ResponseDepartmentDTO request = (ResponseDepartmentDTO) scaffoldingClient.view(basicAuth, p_Id);
-        p_Model.addAttribute("headTitle", getHeadTitle());
-        p_Model.addAttribute("pageTitle", getPageTitle());
-        p_Model.addAttribute("pageSubTitle", getPageSubtitle());
-        p_Model.addAttribute("breadCrumbTitle", getBreadCrumbTitle());
-        p_Model.addAttribute("breadCrumbSubTitle", getBreadCrumbSubTitle());
-        p_Model.addAttribute("scaffoldingHeaderTitle", getScaffoldingHeaderTitle().concat(" | UPDATE"));
+        setBasicModelAttributes(p_Model, "UPDATE");
         p_Model.addAttribute("scaffoldingBackLink", getScaffoldingBackLink());
         p_Model.addAttribute("actionLink", getUpdateLink());
-        p_Model.addAttribute("formGroup", getFormGroup());
-        p_Model.addAttribute("requestFormVU", request);
+        p_Model.addAttribute("formGroup", getFormGroup(basicAuth));
+        p_Model.addAttribute("requestFormVU", getSingleObjectResponse(basicAuth, p_Id));
         p_Model.addAttribute("viewMode", false);
         return getDisplayView();
     }
@@ -128,6 +104,7 @@ public abstract class AScaffoldingPage<REQUEST, REQUEST_UPDATE> implements IScaf
     );
 
     public abstract List<String> getTableColumns();
+    public abstract String getEntityName();
     public abstract String getDisplayIndex();
     public abstract String getDisplayInsert();
     public abstract String getDisplayView();
@@ -144,6 +121,21 @@ public abstract class AScaffoldingPage<REQUEST, REQUEST_UPDATE> implements IScaf
     public abstract String getInsertLink();
     public abstract String getUpdateLink();
 
-    public abstract List<Object> getFormGroup();
+    public abstract List<Object> getFormGroup(String p_BasicAuth);
     public abstract List<Object> getFormButtons();
+    public abstract REQUEST getSingleObjectRequest();
+    public abstract REQUEST_UPDATE getSingleObjectResponse(String p_BasicAuth, Long p_Id);
+
+    private void setBasicModelAttributes(Model p_Model, String p_ScaffoldingHeaderTitle) {
+        p_Model.addAttribute("headTitle", getHeadTitle());
+        p_Model.addAttribute("pageTitle", getPageTitle());
+        p_Model.addAttribute("pageSubTitle", getPageSubtitle());
+        p_Model.addAttribute("breadCrumbTitle", getBreadCrumbTitle());
+        p_Model.addAttribute("breadCrumbSubTitle", getBreadCrumbSubTitle());
+        if (p_ScaffoldingHeaderTitle != null) {
+            p_Model.addAttribute("scaffoldingHeaderTitle", getScaffoldingHeaderTitle() + "|" + p_ScaffoldingHeaderTitle);
+        }else {
+            p_Model.addAttribute("scaffoldingHeaderTitle", getScaffoldingHeaderTitle());
+        }
+    }
 }

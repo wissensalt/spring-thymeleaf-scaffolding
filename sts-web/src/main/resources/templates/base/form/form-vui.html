@@ -7,10 +7,13 @@
 <form class="form-horizontal formInsert" action="#" th:action="${actionLink}" th:method="POST" th:object="${requestFormVUI}" th:fragment="form-vui">
     <div class="col-md-6">
         <div class="box-body">
-            <div class="form-group" th:fragment="form-input-text" th:switch="${item.itemInput.type}" th:each="item: ${formGroup}">
-                <div th:if="${item.itemLabel != null} " th:remove="tag">
-                    <label th:for="${item.itemInput.id}" class="col-sm-2 control-label" th:text="${item.itemLabel.text}">Label</label>
+            <div class="form-group" th:fragment="form-input-text" th:switch="${item.type}" th:each="item: ${formGroup}">
+                <!--<div th:text="${item.itemLabel.text}"></div>-->
+                <div th:if="${item.itemLabel != null}" th:remove="tag">
+                    <label th:if="${item.hasId}" th:for="${item.itemInput.id}" class="col-sm-2 control-label" th:text="${item.itemLabel.text}">Label</label>
+                    <label th:if="!${item.hasId}" class="col-sm-2 control-label" th:text="${item.itemLabel.text}">Label</label>
                 </div>
+
                 <div class="col-sm-10" th:case="'text'">
                     <div>
                         <input type="text" th:class="${item.itemInput.className}" th:id="${item.itemInput.id}" th:placeholder="${item.itemInput.placeHolder}"  th:required="${item.itemInput.required}" th:name="${item.itemInput.fieldName}">
@@ -24,10 +27,28 @@
                 <div class="col-sm-offset-2 col-sm-10" th:case="'checkbox'">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" th:name="${item.itemInput.fieldName}" th:checked="${requestFormVUI.status}"> Status
+                            <input type="checkbox" th:name="${item.itemInput.fieldName}" th:checked="${requestFormVUI.status}" th:text="${item.itemInput.stickyLabel}">
                         </label>
                     </div>
                 </div>
+
+                <div class="col-sm-10" th:case="'number'">
+                    <div>
+                        <input type="number" th:class="${item.itemInput.className}" th:id="${item.itemInput.id}" th:placeholder="${item.itemInput.placeHolder}"  th:required="${item.itemInput.required}" th:name="${item.itemInput.fieldName}">
+                    </div>
+                </div>
+
+                <div class="col-sm-10" th:case="'lov'">
+                    <!--<div th:each="itemOption : ${item.itemInput}" >
+                        <div th:text="${itemOption.lovContent.key}"></div>
+                    </div>-->
+                    <select th:each="itemOption : ${item.itemInput}" th:class="${item.className}"  th:name="${item.fieldName}">
+                        <option th:value="${itemOption.lovContent.key}" th:text="${itemOption.lovContent.value}"></option>
+                    </select>
+                </div>
+
+
+
             </div>
 
             <div class="box-footer">

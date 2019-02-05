@@ -2,6 +2,8 @@ package com.wissensalt.rnd.sts.web.controller;
 
 import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Created on 1/21/19.
  *
@@ -9,5 +11,5 @@ import org.springframework.ui.Model;
  */
 public interface ISimplePage {
 
-    String display(Model p_Model);
+    String display(Model p_Model, HttpServletRequest p_HttpServletRequest);
 }

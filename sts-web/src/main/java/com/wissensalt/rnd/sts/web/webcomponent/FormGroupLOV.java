@@ -3,9 +3,10 @@ package com.wissensalt.rnd.sts.web.webcomponent;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
- * Created on 1/29/19.
+ * Created on 2/5/19.
  *
  * @author <a href="mailto:fauzi.knightmaster.achmad@gmail.com">Achmad Fauzi</a>
  */
@@ -14,11 +15,13 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FormGroupCheckBox implements Serializable {
-
+public class FormGroupLOV implements Serializable {
     @Builder.Default
-    private String type = "checkbox";
+    private String type = "lov";
+
     private Label itemLabel;
-    private InputCheckBox itemInput;
+    private String fieldName;
+    private String className;
+    private List<LOV> itemInput;
     private Boolean hasId;
 }

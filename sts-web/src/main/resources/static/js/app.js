@@ -51,13 +51,12 @@ function gotoLoginPage(adminUrl) {
         showConfirmButton: false,
         timer: 1500,
         onClose: () => {
-            window.location.href = adminUrl;
+        window.location.href = adminUrl;
         }
     });
-
 }
 
-function deleteCrud(id) {
+function deleteCrud(e, id) {
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -66,21 +65,26 @@ function deleteCrud(id) {
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!'
-     }).then((result) => {
+    }).then((result) => {
         if (result.value){
-            callAjaxDelete(id);
-        }
-    });
+        callAjaxDelete(id, e.getAttribute('entity-name'));
+    }
+});
 }
 
 
-function callAjaxDelete(id) {
-    //e.preventDefault();
-    var deleteUrl = 'http://localhost:8080/ajax/department/delete?id='+id;
+function callAjaxDelete(id, entityName) {
+    var url='';
+    if (entityName=== "department") {
+        url = 'http://localhost:8080/ajax/department/delete?id='+id;
+    }
+    if (entityName === "employee") {
+        url = 'http://localhost:8080/ajax/employee/delete?id='+id;
+    }
     $.ajax({
         context : this,
         type : 'GET',
-        url : deleteUrl,
+        url : url,
         contentType : 'application/json',
         success: function( data, textStatus, jQxhr ){
             console.log(JSON.stringify(data));
@@ -112,28 +116,45 @@ $('.btnCreate').on('click', function(e) {
     $('.content').load(linkText + ' .content');
 });
 
-$('.btnView').on('click', function(e) {
-    e.preventDefault();
-    var linkText = '/secured/department/viewForm?id='+$(this).attr('value');
-    $('.content').load(linkText + ' .content');
-});
+function showViewForm(e, id) {
+    var linkText;
+    if (e.getAttribute('entity-name') == 'department') {
+        linkText = '/secured/department/viewForm?id=';
+    }
+    if (e.getAttribute('entity-name') == 'employee') {
+        linkText = '/secured/employee/viewForm?id=';
+    }
+    linkText+=id;
 
-$('.btnUpdate').on('click', function(e) {
-    e.preventDefault();
-    var linkText = '/secured/department/updateForm?id='+$(this).attr('value');
     $('.content').load(linkText + ' .content');
-});
+}
+
+
+function showUpdateForm(e, id) {
+    var linkText;
+    if (e.getAttribute('entity-name') == 'department') {
+        linkText = '/secured/department/updateForm?id=' + id;
+    }
+    if (e.getAttribute('entity-name') == 'employee') {
+        linkText = '/secured/employee/updateForm?id=' + id;
+    }
+
+    $('.content').load(linkText + ' .content');
+}
 
 $('.btnBack').on('click', function(e) {
     e.preventDefault();
     var linkText = $(this).attr('href');
-    //var target = $(this).load(linkText);
     $('.content').load(linkText + ' .content');
 });
 
 function resetForm() {
     $(".formInsert").trigger('reset');
 }
+
+$('.btnReset').on('click', function () {
+    alert('oke');
+});
 
 $('.btnSave').on('click', function(e){
     e.preventDefault();

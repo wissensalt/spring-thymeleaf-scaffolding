@@ -19,7 +19,7 @@ public interface IScaffoldingPage {
     String displayIndex(Model p_Model, HttpServletRequest p_HttpServletRequest);
 
     @GetMapping("/insertForm")
-    String displayInsertForm(Model p_Model);
+    String displayInsertForm(Model p_Model, HttpServletRequest p_HttpServletRequest);
 
     @GetMapping("/viewForm")
     String displayViewForm(Model p_Model, HttpServletRequest p_HttpServletRequest, @RequestParam("id") Long p_Id);

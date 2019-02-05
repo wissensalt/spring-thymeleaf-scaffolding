@@ -1,7 +1,6 @@
 package com.wissensalt.rnd.sts.web.webcomponent;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -12,8 +11,14 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class FormGroupInputText implements Serializable {
 
+    @Builder.Default
+    private String type = "text";
     private Label itemLabel;
     private InputText itemInput;
+    private Boolean hasId;
 }
