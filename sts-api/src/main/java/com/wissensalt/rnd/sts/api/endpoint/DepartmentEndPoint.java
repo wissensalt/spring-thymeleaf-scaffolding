@@ -7,7 +7,7 @@ import com.wissensalt.rnd.sts.shared.data.dto.request.RequestPaginationDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDataDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDepartmentDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseLOVDTO;
-import com.wissensalt.rnd.sts.shared.data.mapper.DepartmentMapper;
+import com.wissensalt.rnd.sts.api.mapper.DepartmentMapper;
 import com.wissensalt.rnd.sts.shared.data.model.Department;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

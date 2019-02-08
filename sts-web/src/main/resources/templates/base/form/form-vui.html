@@ -8,10 +8,9 @@
     <div class="col-md-6">
         <div class="box-body">
             <div class="form-group" th:fragment="form-input-text" th:switch="${item.type}" th:each="item: ${formGroup}">
-                <!--<div th:text="${item.itemLabel.text}"></div>-->
                 <div th:if="${item.itemLabel != null}" th:remove="tag">
                     <label th:if="${item.hasId}" th:for="${item.itemInput.id}" class="col-sm-2 control-label" th:text="${item.itemLabel.text}">Label</label>
-                    <label th:if="!${item.hasId}" class="col-sm-2 control-label" th:text="${item.itemLabel.text}">Label</label>
+                    <label th:if="!${item.hasId}" th:for="${item.id}" class="col-sm-2 control-label" th:text="${item.itemLabel.text}">Label</label>
                 </div>
 
                 <div class="col-sm-10" th:case="'text'">
@@ -39,12 +38,13 @@
                 </div>
 
                 <div class="col-sm-10" th:case="'lov'">
-                    <!--<div th:each="itemOption : ${item.itemInput}" >
-                        <div th:text="${itemOption.lovContent.key}"></div>
-                    </div>-->
-                    <select th:each="itemOption : ${item.itemInput}" th:class="${item.className}"  th:name="${item.fieldName}">
-                        <option th:value="${itemOption.lovContent.key}" th:text="${itemOption.lovContent.value}"></option>
-                    </select>
+                    <div>
+                        <select th:id="${item.id}" th:class="${item.className}"  th:name="${item.fieldName}">
+                            <span th:each="itemOption : ${item.itemInput}">
+                                <option th:value="${itemOption.lovContent.key}" th:text="${itemOption.lovContent.value}"></option>
+                            </span>
+                        </select>
+                    </div>
                 </div>
 
 

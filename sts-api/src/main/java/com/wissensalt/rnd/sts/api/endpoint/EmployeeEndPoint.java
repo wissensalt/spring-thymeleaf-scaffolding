@@ -1,12 +1,13 @@
 package com.wissensalt.rnd.sts.api.endpoint;
 
+import com.wissensalt.rnd.sts.api.dao.IDepartmentDAO;
 import com.wissensalt.rnd.sts.api.dao.IEmployeeDAO;
 import com.wissensalt.rnd.sts.shared.data.PageRequestBuilder;
 import com.wissensalt.rnd.sts.shared.data.dto.request.RequestInsertEmployeeDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.request.RequestPaginationDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDataDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseEmployeeDTO;
-import com.wissensalt.rnd.sts.shared.data.mapper.EmployeeMapper;
+import com.wissensalt.rnd.sts.api.mapper.EmployeeMapper;
 import com.wissensalt.rnd.sts.shared.data.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,6 +28,9 @@ public class EmployeeEndPoint {
 
     @Autowired
     private IEmployeeDAO employeeDAO;
+
+    @Autowired
+    private IDepartmentDAO departmentDAO;
 
     @Autowired
     private EmployeeMapper employeeMapper;
@@ -55,6 +59,7 @@ public class EmployeeEndPoint {
 
     @PostMapping("/insert")
     public ResponseDataDTO insert(@RequestBody RequestInsertEmployeeDTO p_RequestInsertEmployeeDTO) {
+        System.out.println(p_RequestInsertEmployeeDTO.toString());
         employeeDAO.save(employeeMapper.requestToDepartment(p_RequestInsertEmployeeDTO));
         return success();
     }
@@ -72,6 +77,7 @@ public class EmployeeEndPoint {
         employee.setRemarks(p_ResponseEmployeeDTO.getRemarks());
         employee.setStatus(p_ResponseEmployeeDTO.getStatus());
         employee.setSalary(p_ResponseEmployeeDTO.getSalary());
+        employee.setDepartment(departmentDAO.findById(p_ResponseEmployeeDTO.getDepartmentId()).get());
         employeeDAO.save(employee);
         return success();
     }

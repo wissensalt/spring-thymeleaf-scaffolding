@@ -21,8 +21,7 @@ $('#btLogin').on('click', function(e) {
             console.log(JSON.stringify(data));
             if (data.responseCode == "200") {
                 //alert(data.responseMsg);
-
-                gotoLoginPage(adminUrl);
+                gotoLoginPage(adminUrl, 'Success', 'Success Login');
             }else {
                 Swal.fire({
                     type: 'error',
@@ -44,10 +43,54 @@ $('#btLogin').on('click', function(e) {
     });
 });
 
-function gotoLoginPage(adminUrl) {
+$('#btRegister').on('click', function(e) {
+    e.preventDefault();
+    var payload = {};
+    payload.userName = $('#registerUserName').val();
+    payload.name = $('#registerName').val();
+    payload.password = $('#registerPassword').val();
+    var retypePassword = $('#registerRetypePassword').val();
+    if (payload.password === retypePassword) {
+        var registerUrl = 'http://localhost:8080/register/perform';
+        var homeUrl = 'http://localhost:8080';
+
+        $('#btRegister').html('Please Wait ...');
+        payload = JSON.stringify(payload);
+        $.ajax({
+            type : 'POST',
+            url : registerUrl,
+            data: payload,
+            contentType : 'application/json',
+            success: function( data, textStatus, jQxhr ){
+                console.log(JSON.stringify(data));
+                if (data.responseCode == "200") {
+                    //window.location.href = homeUrl;
+                    gotoLoginPage(homeUrl, 'Success', 'Success Register');
+                }else {
+                    alert("Response Code "+data.responseCode + " Response Message "+data.responseMsg);
+                    $('#btRegister').html('Try Again...');
+                }
+            },
+            error: function( jqXhr, textStatus, errorThrown ){
+                console.log(jqXhr)
+                alert(JSON.stringify(jqXhr));
+                alert('gagal'+jqXhr.responseText);
+                $('#btRegister').html('Try Again...');
+            }
+        });
+    }else{
+        Swal.fire({
+            type: 'error',
+            title: 'Oops...',
+            text: 'Password does not match'
+        });
+    }
+});
+
+function gotoLoginPage(adminUrl, type, title) {
     Swal.fire({
-        type: 'success',
-        title: 'Success Login',
+        type: type,
+        title: title,
         showConfirmButton: false,
         timer: 1500,
         onClose: () => {

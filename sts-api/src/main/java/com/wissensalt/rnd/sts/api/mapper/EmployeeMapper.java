@@ -1,11 +1,16 @@
-package com.wissensalt.rnd.sts.shared.data.mapper;
+package com.wissensalt.rnd.sts.api.mapper;
 
+import com.wissensalt.rnd.sts.api.dao.IDepartmentDAO;
 import com.wissensalt.rnd.sts.shared.data.dto.request.RequestInsertEmployeeDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseEmployeeDTO;
+import com.wissensalt.rnd.sts.shared.data.mapper.MappingConfig;
+import com.wissensalt.rnd.sts.shared.data.model.Department;
 import com.wissensalt.rnd.sts.shared.data.model.Employee;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
+import org.mapstruct.Named;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -18,6 +23,9 @@ import java.util.List;
 @Component
 @Mapper(config = MappingConfig.class)
 public abstract class EmployeeMapper {
+
+    @Autowired
+    private IDepartmentDAO departmentDAO;
 
     @Mappings({
             @Mapping(target = "id", source = "employee.id"),
@@ -36,8 +44,15 @@ public abstract class EmployeeMapper {
             @Mapping(target = "remarks", source = "employee.remarks"),
             @Mapping(target = "salary", source = "employee.salary"),
             @Mapping(target = "status", source = "employee.status"),
-            @Mapping(target = "department", ignore = true),
-            @Mapping(target = "id", ignore = true)
+            @Mapping(target = "id", ignore = true),
+            @Mapping(target = "department", source = "employee.departmentId", qualifiedByName = "departmentById")
     })
     public abstract Employee requestToDepartment(RequestInsertEmployeeDTO employee);
+
+    @Named("departmentById")
+    Department departmentById(Long departmentId) {
+        return departmentDAO.findById(departmentId).get();
+    }
+
+
 }

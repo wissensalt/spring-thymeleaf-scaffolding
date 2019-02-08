@@ -146,6 +146,7 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
         List<Object> result = new ArrayList<>();
 
         FormGroupInputText groupCode = new FormGroupInputText();
+        groupCode.setHasId(true);
         InputText txtCode = new InputText();
         txtCode.setId("idCode");
         txtCode.setClassName("form-control");
@@ -160,6 +161,7 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
         groupCode.setItemInput(txtCode);
 
         FormGroupInputText groupName = new FormGroupInputText();
+        groupName.setHasId(true);
         InputText txtName = new InputText();
         txtName.setId("idName");
         txtName.setClassName("form-control");
@@ -174,6 +176,7 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
         groupName.setItemInput(txtName);
 
         FormGroupTextArea groupRemarks = new FormGroupTextArea();
+        groupRemarks.setHasId(true);
         InputTextArea txtRemarks  = new InputTextArea();
         txtRemarks.setId("idRemarks");
         txtRemarks.setClassName("form-control");

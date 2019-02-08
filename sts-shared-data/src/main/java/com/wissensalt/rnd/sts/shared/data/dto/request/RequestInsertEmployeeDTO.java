@@ -2,6 +2,7 @@ package com.wissensalt.rnd.sts.shared.data.dto.request;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -10,6 +11,7 @@ import java.io.Serializable;
  *
  * @author <a href="mailto:fauzi.knightmaster.achmad@gmail.com">Achmad Fauzi</a>
  */
+@ToString
 @Getter
 @Setter
 public class RequestInsertEmployeeDTO implements Serializable {

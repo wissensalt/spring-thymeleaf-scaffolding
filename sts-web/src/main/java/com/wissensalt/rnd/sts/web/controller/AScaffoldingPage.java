@@ -126,7 +126,7 @@ public abstract class AScaffoldingPage<REQUEST, REQUEST_UPDATE> implements IScaf
     public abstract REQUEST getSingleObjectRequest();
     public abstract REQUEST_UPDATE getSingleObjectResponse(String p_BasicAuth, Long p_Id);
 
-    private void setBasicModelAttributes(Model p_Model, String p_ScaffoldingHeaderTitle) {
+    protected void setBasicModelAttributes(Model p_Model, String p_ScaffoldingHeaderTitle) {
         p_Model.addAttribute("headTitle", getHeadTitle());
         p_Model.addAttribute("pageTitle", getPageTitle());
         p_Model.addAttribute("pageSubTitle", getPageSubtitle());

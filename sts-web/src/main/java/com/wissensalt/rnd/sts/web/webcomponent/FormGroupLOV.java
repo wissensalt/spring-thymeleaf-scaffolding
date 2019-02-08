@@ -24,4 +24,5 @@ public class FormGroupLOV implements Serializable {
     private String className;
     private List<LOV> itemInput;
     private Boolean hasId;
+    private String id;
 }

@@ -1,7 +1,8 @@
-package com.wissensalt.rnd.sts.shared.data.mapper;
+package com.wissensalt.rnd.sts.api.mapper;
 
 import com.wissensalt.rnd.sts.shared.data.dto.request.RequestInsertDepartmentDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDepartmentDTO;
+import com.wissensalt.rnd.sts.shared.data.mapper.MappingConfig;
 import com.wissensalt.rnd.sts.shared.data.model.Department;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -39,5 +40,4 @@ public abstract class DepartmentMapper {
             @Mapping(target = "employees", ignore = true)
     })
     public abstract Department requestToDepartment(RequestInsertDepartmentDTO department);
-
 }

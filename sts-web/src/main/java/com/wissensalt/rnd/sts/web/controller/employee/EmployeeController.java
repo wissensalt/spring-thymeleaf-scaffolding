@@ -10,13 +10,16 @@ import com.wissensalt.rnd.sts.web.feign.impl.EmployeeClientImpl;
 import com.wissensalt.rnd.sts.web.webcomponent.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +61,39 @@ public class EmployeeController extends AScaffoldingPage<RequestInsertEmployeeDT
             add("remarks");
             add("salary");
         }};
+    }
+
+    @Override
+    public String displayViewForm(Model p_Model, HttpServletRequest p_HttpServletRequest, @RequestParam("id") Long p_Id) {
+        HttpSession session = p_HttpServletRequest.getSession(true);
+        String basicAuth = (String) session.getAttribute("basicAuth");
+
+        super.setBasicModelAttributes(p_Model, "VIEW");
+        p_Model.addAttribute("scaffoldingBackLink", getScaffoldingBackLink());
+        p_Model.addAttribute("formGroup", getFormGroup(basicAuth));
+        p_Model.addAttribute("requestFormVU", getSingleObjectResponse(basicAuth, p_Id));
+
+        List<ResponseLOVDTO> LovDepartment = departmentClient.selectLOV(basicAuth);
+        p_Model.addAttribute("lovDepartment", LovDepartment);
+
+        p_Model.addAttribute("viewMode", true);
+        return getDisplayView();
+    }
+
+    @Override
+    public String displayUpdateForm(Model p_Model, HttpServletRequest p_HttpServletRequest, @RequestParam("id") Long p_Id) {
+        HttpSession session = p_HttpServletRequest.getSession(true);
+        String basicAuth = (String) session.getAttribute("basicAuth");
+
+        setBasicModelAttributes(p_Model, "UPDATE");
+        p_Model.addAttribute("scaffoldingBackLink", getScaffoldingBackLink());
+        p_Model.addAttribute("actionLink", getUpdateLink());
+        p_Model.addAttribute("formGroup", getFormGroup(basicAuth));
+        p_Model.addAttribute("requestFormVU", getSingleObjectResponse(basicAuth, p_Id));
+        List<ResponseLOVDTO> LovDepartment = departmentClient.selectLOV(basicAuth);
+        p_Model.addAttribute("lovDepartment", LovDepartment);
+        p_Model.addAttribute("viewMode", false);
+        return getDisplayView();
     }
 
     @Override
@@ -217,6 +253,7 @@ public class EmployeeController extends AScaffoldingPage<RequestInsertEmployeeDT
         /*LOV*/
         FormGroupLOV groupLOV = new FormGroupLOV();
         groupLOV.setHasId(false);
+        groupLOV.setId("idLovDepartment");
         groupLOV.setFieldName("departmentId");
         groupLOV.setClassName("form-control");
         List<ResponseLOVDTO> responseLOVDTOs = departmentClient.selectLOV(p_BasicAuth);

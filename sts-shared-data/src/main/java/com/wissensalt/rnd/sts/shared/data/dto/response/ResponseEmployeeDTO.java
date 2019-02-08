@@ -25,6 +25,7 @@ public class ResponseEmployeeDTO implements Serializable {
     private Double salary;
     private Boolean status;
     private ResponseDepartmentDTO department;
+    private Long departmentId;
 
     public ResponseEmployeeDTO(Long id, String code, String name, String remarks, Boolean status, Double salary, Long departmentId, String departmentCode, String departmentName, String departmentRemarks, Boolean departmentStatus) {
         this.id = id;
