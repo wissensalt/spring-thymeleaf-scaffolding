@@ -1,0 +1,14 @@
+
+\.idea/
+
+sts-api/target/
+
+sts-api/sts-api\.iml
+
+sts-web/sts-web\.iml
+
+sts-web/target/
+
+target/
+
+*.iml
