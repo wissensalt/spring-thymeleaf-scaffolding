@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div class="col-sm-7" th:fragment="scaffolding-page-navigation">
-    <div class="dataTables_paginate paging_simple_numbers" >
+    <div class="dataTables_paginate" >
         <ul class="pagination">
-            <li class="paginate_button previous disabled" >
-                <a href="#" data-dt-idx="0" tabindex="0">Previous</a>
-            </li>
-            <li class="paginate_button active">
-                <a href="#" data-dt-idx="1" tabindex="0">1</a>
-            </li>
-            <li class="paginate_button next" id="example2_next">
-                <a href="#" data-dt-idx="7" tabindex="0">Next</a>
+            <li th:class="${paginationButton.className}" th:each="paginationButton : ${paginationButtons}">
+                <!--class="pagination-action"-->
+                <!--onclick="changePage(this)"-->
+                <a href="#" th:link="${paginationButton.link}" class="pagination-action">
+                    <i th:if="${paginationButton.iconName != null}" th:class="${paginationButton.iconName}"></i>
+                    <span th:unless="${paginationButton.iconName != null}" th:text="${paginationButton.text}"></span>
+                </a>
             </li>
         </ul>
     </div>

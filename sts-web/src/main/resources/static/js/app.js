@@ -21,7 +21,7 @@ $('#btLogin').on('click', function(e) {
             console.log(JSON.stringify(data));
             if (data.responseCode == "200") {
                 //alert(data.responseMsg);
-                gotoLoginPage(adminUrl, 'Success', 'Success Login');
+                gotoLoginPage(adminUrl, 'success', 'Success Login');
             }else {
                 Swal.fire({
                     type: 'error',
@@ -65,7 +65,7 @@ $('#btRegister').on('click', function(e) {
                 console.log(JSON.stringify(data));
                 if (data.responseCode == "200") {
                     //window.location.href = homeUrl;
-                    gotoLoginPage(homeUrl, 'Success', 'Success Register');
+                    gotoLoginPage(homeUrl, 'success', 'Success Register');
                 }else {
                     alert("Response Code "+data.responseCode + " Response Message "+data.responseMsg);
                     $('#btRegister').html('Try Again...');
@@ -95,8 +95,8 @@ function gotoLoginPage(adminUrl, type, title) {
         timer: 1500,
         onClose: () => {
         window.location.href = adminUrl;
-        }
-    });
+}
+});
 }
 
 function deleteCrud(e, id) {
@@ -185,6 +185,33 @@ function showUpdateForm(e, id) {
     $('.content').load(linkText + ' .content');
 }
 
+function changePageSize(e) {
+    var linkOption;
+    var selectedSize = e.options[e.selectedIndex].value;
+    if (e.getAttribute('entity-name') == 'department') {
+        linkOption = '/secured/department/page?offset='+0+'&size=' + selectedSize;
+    }
+    if (e.getAttribute('entity-name') == 'employee') {
+        linkOption = '/secured/employee/page?offset='+0+'&size=' + selectedSize;
+    }
+    $('.tableChanger').load(linkOption + ' .tableChanger');
+}
+
+
+$(document).on('click', '.pagination-action', function(e){
+    e.preventDefault();
+
+    /*var lovShowNumber = $('#lov-show-number');
+    var selectedSize = lovShowNumber.children('option:selected').val();*/
+
+    var linkOption= $(this).attr('link');
+    if (linkOption !== '#') {
+        $('.tableChanger').load(linkOption + ' .tableChanger');
+    }
+
+});
+
+
 $('.btnBack').on('click', function(e) {
     e.preventDefault();
     var linkText = $(this).attr('href');
@@ -216,9 +243,27 @@ $('.btnSave').on('click', function(e){
     });
 });
 
-$('.content').ready(function () {
+
+content = $('.content');
+table = $('.tableLoader');
+
+content.ready(function () {
     var alertInsertInfo = $('#alertInsertInfo');
     if (alertInsertInfo.text() != null && alertInsertInfo.text().length > 0) {
         $.notify(alertInsertInfo.text(), "success");
+    }
+});
+
+
+$(document).on({
+    ajaxStart: function() {
+        if (table != null) {
+            table.jmspinner();
+        }
+    },
+    ajaxStop: function() {
+        if (table != null) {
+            table.jmspinner(false);
+        }
     }
 });

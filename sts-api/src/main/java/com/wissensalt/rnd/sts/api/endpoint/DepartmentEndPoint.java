@@ -41,8 +41,8 @@ public class DepartmentEndPoint {
     public Page<ResponseDepartmentDTO> findPagination(@RequestBody RequestPaginationDTO p_RequestPagination) {
         PageRequest pageRequest = PageRequestBuilder.build(p_RequestPagination);
         if (pageRequest != null) {
-            List<Department> departments = departmentDAO.findAll(pageRequest).getContent();
-            return new PageImpl<>(departmentMapper.toDepartmentDTO(departments));
+            Page<Department> departments = departmentDAO.findAll(pageRequest);
+            return new PageImpl<>(departmentMapper.toDepartmentDTO(departments.getContent()), pageRequest, departments.getTotalElements());
         }else {
             return null;
         }

@@ -172,6 +172,11 @@ public class EmployeeController extends AScaffoldingPage<RequestInsertEmployeeDT
     }
 
     @Override
+    public String getPaginationUrl() {
+        return "/secured/employee/page";
+    }
+
+    @Override
     public ResponseEmployeeDTO getSingleObjectResponse(String p_BasicAuth, Long p_Id) {
         return (ResponseEmployeeDTO) scaffoldingClient.view(p_BasicAuth, p_Id);
     }

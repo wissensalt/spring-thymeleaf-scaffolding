@@ -1,4 +1,7 @@
 server:
+  error:
+    whitelabel:
+      enabled: false
   context-path : /sts
   port : 8080
   tomcat:

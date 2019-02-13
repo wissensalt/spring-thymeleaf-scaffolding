@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 public class ResponsePaginationDTO<RESPONSE> {
     private List<RESPONSE> content;
-    private String pageable;
+//    private String pageable;
     private boolean last;
     private Integer totalPages;
     private Integer totalElements;

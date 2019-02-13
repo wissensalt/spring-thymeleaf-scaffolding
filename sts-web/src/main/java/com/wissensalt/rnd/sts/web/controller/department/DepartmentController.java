@@ -130,6 +130,11 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
     }
 
     @Override
+    public String getPaginationUrl() {
+        return "/secured/department/page";
+    }
+
+    @Override
     public ResponseDepartmentDTO getSingleObjectResponse(String p_BasicAuth, Long p_Id) {
         return (ResponseDepartmentDTO) scaffoldingClient.view(p_BasicAuth, p_Id);
     }
