@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{index.html}"
+        th:with="
+        breadCrumbTitle='Error',
+        breadCrumbSubTitle='this is error'
+        ">
+<head>
+    <title th:text="${headTitle}">STS - Dashboard</title>
+</head>
+<h1 layout:fragment="page-title-subtitle" th:text="${pageTitle}">
+    Master Data
+    <small th:text="${pageSubTitle}">Scaffolding</small>
+</h1>
+<section class="content" layout:fragment="content">
+
+</section>
+</html>

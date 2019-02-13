@@ -1,0 +1,7 @@
+.dataTables_wrapper.loading {
+    overflow: hidden;
+}
+
+.dataTables_wrapper .lds-facebook {
+    display: block;
+}

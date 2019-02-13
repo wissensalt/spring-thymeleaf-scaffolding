@@ -24,11 +24,13 @@
             <div class="box box-default">
                 <div class="box-header with-border" th:include="~{base/scaffolding/scaffolding-header :: scaffolding-header}"></div>
                 <div class="box-header with-border" th:include="~{base/scaffolding/scaffolding-form-inquiry :: scaffolding-form-inquiry}"></div>
-                <div class="box-body contentTable" >
+                <div class="box-body contentTable">
                     <div class="dataTables_wrapper form-inline dt-bootstrap">
                         <div class="row" th:include="~{base/scaffolding/scaffolding-lov-show-number :: scaffolding-lov-show-number}"></div>
-                        <table class="table table-bordered table-hover dataTable" role="grid" th:include="~{base/scaffolding/scaffolding-table :: scaffolding-table}"></table>
-                        <div th:include="~{base/scaffolding/scaffolding-table-info :: scaffolding-table-info}"></div>
+                        <span class="tableChanger">
+                            <table class="table table-bordered table-hover dataTable" role="grid" th:include="~{base/scaffolding/scaffolding-table :: scaffolding-table}"></table>
+                            <div th:include="~{base/scaffolding/scaffolding-table-info :: scaffolding-table-info}"></div>
+                        </span>
                     </div>
                 </div>
             </div>

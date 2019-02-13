@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div class="col-sm-5" th:fragment="scaffolding-pagination-info">
-    <div class="dataTables_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
+    <div class="dataTables_info" role="status" aria-live="polite" th:if="${startElement != 0}">Showing <span th:text="${startElement}"></span> to <span th:text="${numberOfElements}"></span> of <span th:text="${items.totalElements}"></span> entries</div>
+    <div class="dataTables_info" role="status" aria-live="polite" th:unless="${startElement != 0}">Data Empty</div>
 </div>
 </html>

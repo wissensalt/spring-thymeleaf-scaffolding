@@ -1,7 +1,9 @@
 package com.wissensalt.rnd.sts.web.controller;
 
 import com.wissensalt.rnd.sts.shared.data.dto.request.RequestPaginationDTO;
+import com.wissensalt.rnd.sts.shared.data.dto.response.ResponsePaginationDTO;
 import com.wissensalt.rnd.sts.web.feign.IScaffoldingClient;
+import com.wissensalt.rnd.sts.web.webcomponent.PaginationButton;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -42,7 +44,45 @@ public abstract class AScaffoldingPage<REQUEST, REQUEST_UPDATE> implements IScaf
         String basicAuth = (String) session.getAttribute("basicAuth");
 
         p_Model.addAttribute("entityName", getEntityName());
-        p_Model.addAttribute("items", scaffoldingClient.conductFindPagination(basicAuth, paginationDTO));
+        ResponsePaginationDTO<REQUEST_UPDATE> responsePage = scaffoldingClient.conductFindPagination(basicAuth, paginationDTO);
+        p_Model.addAttribute("items", responsePage);
+        if (!responsePage.isEmpty()) {
+            p_Model.addAttribute("startElement", (responsePage.getNumberOfElements() * responsePage.getNumber() +1));
+            p_Model.addAttribute("numberOfElements", (responsePage.getNumberOfElements() * responsePage.getNumber() +responsePage.getNumberOfElements()));
+        }else {
+            p_Model.addAttribute("startElement", 0);
+        }
+
+        p_Model.addAttribute("paginationButtons", PaginationButton.buildStartPagination(responsePage, getPaginationUrl()));
+        return getDisplayIndex();
+    }
+
+    @Override
+    public String displayIndexPaged(Model p_Model, @RequestParam("offset") int p_Offset, @RequestParam("size") int p_Size, HttpServletRequest p_HttpServletRequest) {
+        setBasicModelAttributes(p_Model, null);
+        p_Model.addAttribute("scaffoldingCreateLink", getScaffoldingCreateLink());
+        p_Model.addAttribute("tableHeaders", getTableColumns());
+
+        RequestPaginationDTO paginationDTO = new RequestPaginationDTO();
+        paginationDTO.setLimit(p_Size);
+        paginationDTO.setOffset(p_Offset);
+        paginationDTO.setOrder("asc");
+        paginationDTO.setSort("id");
+
+        HttpSession session = p_HttpServletRequest.getSession(true);
+        String basicAuth = (String) session.getAttribute("basicAuth");
+
+        p_Model.addAttribute("entityName", getEntityName());
+        ResponsePaginationDTO<REQUEST_UPDATE> responsePage = scaffoldingClient.conductFindPagination(basicAuth, paginationDTO);
+        p_Model.addAttribute("items", responsePage);
+        if (!responsePage.isEmpty()) {
+            p_Model.addAttribute("startElement", (responsePage.getSize() * responsePage.getNumber() +1));
+            p_Model.addAttribute("numberOfElements", (responsePage.getSize() * responsePage.getNumber() + responsePage.getNumberOfElements()));
+        }else {
+            p_Model.addAttribute("startElement", 0);
+        }
+
+        p_Model.addAttribute("paginationButtons", PaginationButton.buildChangedPagination(responsePage, getPaginationUrl(), p_Size));
         return getDisplayIndex();
     }
 
@@ -120,6 +160,7 @@ public abstract class AScaffoldingPage<REQUEST, REQUEST_UPDATE> implements IScaf
     public abstract String getPageSubtitle();
     public abstract String getInsertLink();
     public abstract String getUpdateLink();
+    public abstract String getPaginationUrl();
 
     public abstract List<Object> getFormGroup(String p_BasicAuth);
     public abstract List<Object> getFormButtons();

@@ -18,6 +18,9 @@ public interface IScaffoldingPage {
     @GetMapping(value = "")
     String displayIndex(Model p_Model, HttpServletRequest p_HttpServletRequest);
 
+    @GetMapping(value = "/page")
+    String displayIndexPaged(Model p_Model, @RequestParam("offset") int p_Offset, @RequestParam("size") int p_Size,HttpServletRequest p_HttpServletRequest);
+
     @GetMapping("/insertForm")
     String displayInsertForm(Model p_Model, HttpServletRequest p_HttpServletRequest);
 
