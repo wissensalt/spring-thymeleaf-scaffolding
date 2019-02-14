@@ -33,6 +33,9 @@ public abstract class EmployeeMapper {
             @Mapping(target = "name", source = "employee.name"),
             @Mapping(target = "remarks", source = "employee.remarks"),
             @Mapping(target = "salary", source = "employee.salary"),
+            @Mapping(target = "status", ignore = true),
+            @Mapping(target = "department", ignore = true),
+            @Mapping(target = "departmentId", ignore = true),
     })
     public abstract ResponseEmployeeDTO toEmployeeDTO(Employee employee);
 
