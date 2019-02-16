@@ -3,11 +3,11 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="index.html"
         >
-
 <form class="form-horizontal formInsert" action="#" th:action="${actionLink}" th:method="POST" th:object="${requestFormVUI}" th:fragment="form-vui">
     <div class="col-md-6">
         <div class="box-body">
-            <div class="form-group" th:fragment="form-input-text" th:switch="${item.type}" th:each="item: ${formGroup}">
+            <!--<div class="form-group" th:include="~{base/form/base-form :: base-form}">-->
+            <div class="form-group" th:fragment="base-form" th:switch="${item.type}" th:each="item: ${formGroup}">
                 <div th:if="${item.itemLabel != null}" th:remove="tag">
                     <label th:if="${item.hasId}" th:for="${item.itemInput.id}" class="col-sm-2 control-label" th:text="${item.itemLabel.text}">Label</label>
                     <label th:if="!${item.hasId}" th:for="${item.id}" class="col-sm-2 control-label" th:text="${item.itemLabel.text}">Label</label>
@@ -41,14 +41,11 @@
                     <div>
                         <select th:id="${item.id}" th:class="${item.className}"  th:name="${item.fieldName}">
                             <span th:each="itemOption : ${item.itemInput}">
-                                <option th:value="${itemOption.lovContent.key}" th:text="${itemOption.lovContent.value}"></option>
+                                <option th:value="${itemOption.key}" th:text="${itemOption.value}"></option>
                             </span>
                         </select>
                     </div>
                 </div>
-
-
-
             </div>
 
             <div class="box-footer">

@@ -57,7 +57,6 @@ public class EmployeeClientImpl implements IScaffoldingClient<RequestInsertEmplo
 
     @Override
     public ResponseDataDTO update(String p_BasicAuth, ResponseEmployeeDTO p_ResponseEmployeeDTO) {
-        System.out.println(p_ResponseEmployeeDTO.toString());
         IEmployeeClient employeeClient = FeignBuilderFactory.createClient(IEmployeeClient.class, apiBasePath);
         return employeeClient.update("Basic " + p_BasicAuth, p_ResponseEmployeeDTO);
     }

@@ -26,4 +26,10 @@ public class ButtonReset implements Serializable {
 
     @Builder.Default
     private String iconClassName = "fa fa-eraser";
+
+    public static ButtonReset build(String p_Text) {
+        ButtonReset result = new ButtonReset();
+        result.setText(p_Text);
+        return result;
+    }
 }

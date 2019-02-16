@@ -44,8 +44,8 @@ public class EmployeeEndPoint {
     public Page<ResponseEmployeeDTO> findPagination(@RequestBody RequestPaginationDTO p_RequestPagination) {
         PageRequest pageRequest = PageRequestBuilder.build(p_RequestPagination);
         if (pageRequest != null) {
-            List<Employee> employees = employeeDAO.findAll(pageRequest).getContent();
-            return new PageImpl<>(employeeMapper.toEmployeeDTO(employees));
+            Page<Employee> employees = employeeDAO.findAll(pageRequest);
+            return new PageImpl<>(employeeMapper.toEmployeeDTO(employees.getContent()), pageRequest, employees.getTotalElements());
         }else {
             return null;
         }
@@ -59,7 +59,6 @@ public class EmployeeEndPoint {
 
     @PostMapping("/insert")
     public ResponseDataDTO insert(@RequestBody RequestInsertEmployeeDTO p_RequestInsertEmployeeDTO) {
-        System.out.println(p_RequestInsertEmployeeDTO.toString());
         employeeDAO.save(employeeMapper.requestToDepartment(p_RequestInsertEmployeeDTO));
         return success();
     }

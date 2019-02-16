@@ -201,9 +201,6 @@ function changePageSize(e) {
 $(document).on('click', '.pagination-action', function(e){
     e.preventDefault();
 
-    /*var lovShowNumber = $('#lov-show-number');
-    var selectedSize = lovShowNumber.children('option:selected').val();*/
-
     var linkOption= $(this).attr('link');
     if (linkOption !== '#') {
         $('.tableChanger').load(linkOption + ' .tableChanger');
@@ -219,7 +216,7 @@ $('.btnBack').on('click', function(e) {
 });
 
 function resetForm() {
-    $(".formInsert").trigger('reset');
+    $(".form-insert").trigger('reset');
 }
 
 $('.btnReset').on('click', function () {
@@ -228,12 +225,12 @@ $('.btnReset').on('click', function () {
 
 $('.btnSave').on('click', function(e){
     e.preventDefault();
-    var formInsert = $('.formInsert');
-    alert(formInsert.attr('action'));
+    var formInsert = $('.form-insert');
+    alert(form-insert.attr('action'));
     $.ajax({
         type: 'POST',
-        url: formInsert.attr('action'),                           // Any URL
-        data: formInsert.serialize(),                 // Serialize the form data
+        url: form-insert.attr('action'),                           // Any URL
+        data: form-insert.serialize(),                 // Serialize the form data
         success: function (data) {                        // If 200 OK
             alert('Success response: ' + data);
         },
