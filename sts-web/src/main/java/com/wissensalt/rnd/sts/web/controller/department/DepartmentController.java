@@ -33,15 +33,13 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
     @Override
     public RedirectView processInsert(HttpServletRequest p_HttpServletRequest, @ModelAttribute(value = "requestInsertDTO") RequestInsertDepartmentDTO p_Request, RedirectAttributes redirectAttributes) {
         departmentClient.insert(SessionUtil.getBasicAuth(p_HttpServletRequest), p_Request);
-        redirectAttributes.addFlashAttribute("alert", "Success Insert");
-        return new RedirectView(getRedirectIndexURL());
+        return super.processInsert(p_HttpServletRequest, p_Request, redirectAttributes);
     }
 
     @Override
     public RedirectView processUpdate(HttpServletRequest p_HttpServletRequest, @ModelAttribute(value = "requestFormVU") ResponseDepartmentDTO p_Request, RedirectAttributes redirectAttributes) {
         departmentClient.update(SessionUtil.getBasicAuth(p_HttpServletRequest), p_Request);
-        redirectAttributes.addFlashAttribute("alert", "Success Update");
-        return new RedirectView(getRedirectIndexURL());
+        return super.processUpdate(p_HttpServletRequest, p_Request, redirectAttributes);
     }
 
     @Override
@@ -115,11 +113,6 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
     }
 
     @Override
-    public String getPageSubtitle() {
-        return "Scaffolding";
-    }
-
-    @Override
     public String getInsertProcessURL() {
         return "/secured/department/processInsert";
     }
@@ -147,33 +140,9 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
     }
 
     @Override
-    public List<Object> getFormInput(String p_BasicAuth) {
-        List<Object> result = new ArrayList<>();
-
-        FormGroupInputText groupCode = FormGroupInputText.build("idCode", "code", "Code", "Code", true);
-        FormGroupInputText groupName = FormGroupInputText.build("idName", "name", "Name", "Name", true);
-        FormGroupTextArea groupRemarks = FormGroupTextArea.build("idRemarks", "remarks", "5", "20", "Remarks");
-        FormGroupCheckBox groupStatus = FormGroupCheckBox.build("status", "Status");
-
-        result.add(groupCode);
-        result.add(groupName);
-        result.add(groupRemarks);
-        result.add(groupStatus);
-        return result;
-    }
-
-    @Override
     public List<Object> getFormSearch() {
         List<Object> result = new ArrayList<>();
         result.add(FormGroupInputText.build("searchId", "search", "Input Keyword", "Search", false));
-        return result;
-    }
-
-    @Override
-    public List<Object> getFormButtons() {
-        List<Object> result = new ArrayList<>();
-        result.add(ButtonReset.build("Reset"));
-        result.add(ButtonSubmit.build("Save"));
         return result;
     }
 

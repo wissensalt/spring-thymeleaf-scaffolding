@@ -62,20 +62,18 @@ public class EmployeeController extends AScaffoldingPage<RequestInsertEmployeeDT
 
     @Override
     public String displayViewForm(Model p_Model, HttpServletRequest p_HttpServletRequest, @RequestParam("id") Long p_Id) {
-        super.displayViewForm(p_Model, p_HttpServletRequest, p_Id);
-
         List<ResponseLOVDTO> LovDepartment = departmentClient.selectLOV(SessionUtil.getBasicAuth(p_HttpServletRequest));
         p_Model.addAttribute("lovDepartment", LovDepartment);
-        return getViewURL();
+
+        return super.displayViewForm(p_Model, p_HttpServletRequest, p_Id);
     }
 
     @Override
     public String displayUpdateForm(Model p_Model, HttpServletRequest p_HttpServletRequest, @RequestParam("id") Long p_Id) {
-        super.displayUpdateForm(p_Model, p_HttpServletRequest, p_Id);
-
         List<ResponseLOVDTO> LovDepartment = departmentClient.selectLOV(SessionUtil.getBasicAuth(p_HttpServletRequest));
         p_Model.addAttribute("lovDepartment", LovDepartment);
-        return getViewURL();
+
+        return super.displayUpdateForm(p_Model, p_HttpServletRequest, p_Id);
     }
 
     @Override
@@ -139,11 +137,6 @@ public class EmployeeController extends AScaffoldingPage<RequestInsertEmployeeDT
     }
 
     @Override
-    public String getPageSubtitle() {
-        return "Scaffolding";
-    }
-
-    @Override
     public String getInsertProcessURL() {
         return "/secured/employee/processInsert";
     }
@@ -193,14 +186,6 @@ public class EmployeeController extends AScaffoldingPage<RequestInsertEmployeeDT
     @Override
     public List<Object> getFormSearch() {
         return null;
-    }
-
-    @Override
-    public List<Object> getFormButtons() {
-        List<Object> result = new ArrayList<>();
-        result.add(ButtonReset.build("Reset"));
-        result.add(ButtonSubmit.build("Save"));
-        return result;
     }
 
     @PostConstruct

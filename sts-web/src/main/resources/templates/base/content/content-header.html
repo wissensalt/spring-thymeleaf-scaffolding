@@ -5,17 +5,16 @@
 >
 <!-- Content Header (Page header) -->
 <section class="content-header" layout:fragment="content-header">
-    <h1 layout:fragment="page-title-subtitle">
-        Dashboard
-        <!--<small>Control panel</small>-->
+    <h1 layout:fragment="page-title-subtitle" th:text="${pageTitle}">
+        PAGE TITLE
     </h1>
     <ol class="breadcrumb" th:fragment="breadcrumb">
         <li>
             <a href="#" th:text="${breadCrumbTitle}">
-                <i class="fa fa-dashboard"></i> Home
+                <i class="fa fa-dashboard"></i> BREAD CRUMB TITLE
             </a>
         </li>
-        <li class="active" th:text="${breadCrumbSubTitle}">Dashboard</li>
+        <li class="active" th:text="${breadCrumbSubTitle}">BREAD CRUMB SUB TITLE</li>
     </ol>
 
 </section>

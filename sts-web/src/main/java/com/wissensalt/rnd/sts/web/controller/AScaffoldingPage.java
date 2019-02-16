@@ -4,7 +4,7 @@ import com.wissensalt.rnd.sts.shared.data.dto.request.RequestPaginationDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponsePaginationDTO;
 import com.wissensalt.rnd.sts.web.SessionUtil;
 import com.wissensalt.rnd.sts.web.feign.IScaffoldingClient;
-import com.wissensalt.rnd.sts.web.webcomponent.ButtonPagination;
+import com.wissensalt.rnd.sts.web.webcomponent.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +15,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -167,19 +168,23 @@ public abstract class AScaffoldingPage<REQUEST, REQUEST_UPDATE> implements IScaf
 
     public abstract String getHeadTitle();
     public abstract String getPageTitle();
-    public abstract String getPageSubtitle();
 
-    public abstract List<Object> getFormInput(String p_BasicAuth);
     public abstract List<Object> getFormSearch();
-    public abstract List<Object> getFormButtons();
 
     public abstract REQUEST getSingleObjectRequest();
     public abstract REQUEST_UPDATE getSingleObjectResponse(String p_BasicAuth, Long p_Id);
 
+    public List<Object> getFormInput(String p_BasicAuth) {
+        return getDefaultFormInput();
+    }
+
+    public List<Object> getFormButtons() {
+        return getDefaultFormButtons();
+    }
+
     protected void setBasicModelAttributes(Model p_Model, String p_ScaffoldingHeaderTitle) {
         p_Model.addAttribute("headTitle", getHeadTitle());
         p_Model.addAttribute("pageTitle", getPageTitle());
-        p_Model.addAttribute("pageSubTitle", getPageSubtitle());
         p_Model.addAttribute("breadCrumbTitle", getBreadCrumbTitle());
         p_Model.addAttribute("breadCrumbSubTitle", getBreadCrumbSubTitle());
         if (p_ScaffoldingHeaderTitle != null) {
@@ -187,5 +192,27 @@ public abstract class AScaffoldingPage<REQUEST, REQUEST_UPDATE> implements IScaf
         }else {
             p_Model.addAttribute("scaffoldingHeaderTitle", getScaffoldingHeaderTitle());
         }
+    }
+
+    protected List<Object> getDefaultFormButtons() {
+        List<Object> result = new ArrayList<>();
+        result.add(ButtonReset.build("Reset"));
+        result.add(ButtonSubmit.build("Save"));
+        return result;
+    }
+
+    protected List<Object> getDefaultFormInput () {
+        List<Object> result = new ArrayList<>();
+
+        FormGroupInputText groupCode = FormGroupInputText.build("idCode", "code", "Code", "Code", true);
+        FormGroupInputText groupName = FormGroupInputText.build("idName", "name", "Name", "Name", true);
+        FormGroupTextArea groupRemarks = FormGroupTextArea.build("idRemarks", "remarks", "5", "20", "Remarks");
+        FormGroupCheckBox groupStatus = FormGroupCheckBox.build("status", "Status");
+
+        result.add(groupCode);
+        result.add(groupName);
+        result.add(groupRemarks);
+        result.add(groupStatus);
+        return result;
     }
 }

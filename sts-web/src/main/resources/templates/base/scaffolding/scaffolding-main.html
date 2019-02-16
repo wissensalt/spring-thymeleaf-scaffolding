@@ -8,15 +8,12 @@
         breadCrumbSubTitle=${breadCrumbSubTitle},
         scaffoldingHeaderTitle=${scaffoldingHeaderTitle},
         scaffoldingCreateLink=${scaffoldingCreateLink}
-        "
-        >
-<head>
-    <title th:text="${headTitle}">STS - Dashboard</title>
+        ">
+
+<head th:include="base/script/header-fragment :: header-fragment">
+    <title th:text="${headTitle}">Layout Generic Title</title>
 </head>
-<h1 layout:fragment="page-title-subtitle" th:text="${pageTitle}">
-    Master Data
-    <small th:text="${pageSubTitle}">Scaffolding</small>
-</h1>
+
 <section class="content" layout:fragment="content">
     <div id="alertInsertInfo" style="display: none;" th:text="${alert}"></div>
     <div class="row">

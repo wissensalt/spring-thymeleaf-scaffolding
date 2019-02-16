@@ -7,9 +7,8 @@
 <head>
     <title>STS - Dashboard</title>
 </head>
-<h1 layout:fragment="page-title-subtitle">
+<h1 layout:fragment="page-title-subtitle" th:text="${pageTitle}">
     Dashboard
-    <!--<small>Control panel</small>-->
 </h1>
 <ol class="breadcrumb" layout:fragment="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
