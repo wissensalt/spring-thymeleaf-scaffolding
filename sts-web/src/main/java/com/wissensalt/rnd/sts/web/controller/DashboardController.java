@@ -32,6 +32,8 @@ public class DashboardController implements ISimplePage {
         String basicAuth = SessionUtil.getBasicAuth(p_HttpServletRequest);
         p_Model.addAttribute("nDepartment", departmentClient.count(basicAuth).getResponseMsg());
         p_Model.addAttribute("nEmployee", employeeClient.count(basicAuth).getResponseMsg());
+        p_Model.addAttribute("pageTitle", "Dashboard");
+        p_Model.addAttribute("headTitle", "STS - Dashboard");
         return "/page/dashboard";
     }
 }

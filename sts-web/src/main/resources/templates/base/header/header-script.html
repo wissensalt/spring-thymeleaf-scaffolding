@@ -8,7 +8,10 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
     <meta name="description" content="login form">
     <meta name="author" content="Achmad Fauzi" />
-    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE" />
+
+    <head th:fragment="header-fragment" th:remove="tag">
+        <title th:text="${headTitle}">Layout Generic Title</title>
+    </head>
 
     <!--BOOTSTRAP-->
     <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap/bootstrap.min.css}" />
