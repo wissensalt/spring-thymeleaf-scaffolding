@@ -21,4 +21,17 @@ public class FormGroupCheckBox implements Serializable {
     private Label itemLabel;
     private InputCheckBox itemInput;
     private Boolean hasId;
+
+    public static FormGroupCheckBox build(String p_FieldName, String p_LabelText) {
+        FormGroupCheckBox result = new FormGroupCheckBox();
+        InputCheckBox checkboxStatus = new InputCheckBox();
+        checkboxStatus.setFieldName(p_FieldName);
+        checkboxStatus.setChecked(true);
+        checkboxStatus.setStickyLabel(p_LabelText);
+        result.setItemInput(checkboxStatus);
+
+        result.setItemLabel(null);
+
+        return result;
+    }
 }

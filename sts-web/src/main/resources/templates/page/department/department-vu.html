@@ -2,13 +2,12 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{base/scaffolding/form-vui/scaffolding-form-vu.html}"
+      layout:decorate="~{base/scaffolding/form/scaffolding-form-vu.html}"
         >
 
-<form class="form-horizontal formVUDepartment" th:action="${actionLink}"  th:method="POST" th:object="${requestFormVU}" layout:fragment="form-vu">
+<form class="form-horizontal" th:action="${actionLink}"  th:method="POST" th:object="${requestFormVU}" layout:fragment="form-vu">
     <div class="col-md-6">
         <div class="box-body">
-
             <div class="form-group">
                 <label for="id" class="col-sm-2 control-label">Id</label>
                 <div class="col-sm-10">

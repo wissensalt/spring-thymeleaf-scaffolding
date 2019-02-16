@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class InputCheckBox implements Serializable {
-
+    
     private String fieldName;
     private Boolean checked;
     private String id;

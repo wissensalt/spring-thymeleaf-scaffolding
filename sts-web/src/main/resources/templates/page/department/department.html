@@ -4,6 +4,7 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{base/scaffolding/scaffolding-main.html}"
         >
+
 <th:block th:each="field : ${item}" layout:fragment="table-definition">
     <td th:text="${field.code}">Dataset Field</td>
     <td th:text="${field.name}">Dataset Field</td>

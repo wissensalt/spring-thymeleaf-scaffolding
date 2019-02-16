@@ -34,14 +34,14 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
     public RedirectView processInsert(HttpServletRequest p_HttpServletRequest, @ModelAttribute(value = "requestInsertDTO") RequestInsertDepartmentDTO p_Request, RedirectAttributes redirectAttributes) {
         departmentClient.insert(SessionUtil.getBasicAuth(p_HttpServletRequest), p_Request);
         redirectAttributes.addFlashAttribute("alert", "Success Insert");
-        return new RedirectView(getRedirectIndexPage());
+        return new RedirectView(getRedirectIndexURL());
     }
 
     @Override
     public RedirectView processUpdate(HttpServletRequest p_HttpServletRequest, @ModelAttribute(value = "requestFormVU") ResponseDepartmentDTO p_Request, RedirectAttributes redirectAttributes) {
         departmentClient.update(SessionUtil.getBasicAuth(p_HttpServletRequest), p_Request);
         redirectAttributes.addFlashAttribute("alert", "Success Update");
-        return new RedirectView(getRedirectIndexPage());
+        return new RedirectView(getRedirectIndexURL());
     }
 
     @Override
@@ -60,22 +60,22 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
     }
 
     @Override
-    public String getDisplayIndex() {
+    public String getIndexURL() {
         return "/page/department/department";
     }
 
     @Override
-    public String getDisplayInsert() {
+    public String getInsertURL() {
         return "/page/department/department-insert";
     }
 
     @Override
-    public String getDisplayView() {
+    public String getViewURL() {
         return "/page/department/department-vu";
     }
 
     @Override
-    public String getRedirectIndexPage() {
+    public String getRedirectIndexURL() {
         return "/secured/department";
     }
 
@@ -95,12 +95,12 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
     }
 
     @Override
-    public String getScaffoldingCreateLink() {
+    public String getScaffoldingCreateURL() {
         return "/secured/department/insertForm";
     }
 
     @Override
-    public String getScaffoldingBackLink() {
+    public String getScaffoldingBackURL() {
         return "/secured/department/";
     }
 
@@ -120,17 +120,17 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
     }
 
     @Override
-    public String getInsertLink() {
+    public String getInsertProcessURL() {
         return "/secured/department/processInsert";
     }
 
     @Override
-    public String getUpdateLink() {
+    public String getUpdateProcessURL() {
         return "/secured/department/processUpdate";
     }
 
     @Override
-    public String getPaginationUrl() {
+    public String getPaginationURL() {
         return "/secured/department/page";
     }
 
@@ -147,63 +147,13 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
     }
 
     @Override
-    public List<Object> getFormGroup(String p_BasicAuth) {
+    public List<Object> getFormInput(String p_BasicAuth) {
         List<Object> result = new ArrayList<>();
 
-        FormGroupInputText groupCode = new FormGroupInputText();
-        groupCode.setHasId(true);
-        InputText txtCode = new InputText();
-        txtCode.setId("idCode");
-        txtCode.setClassName("form-control");
-        txtCode.setFieldName("code");
-        txtCode.setPlaceHolder("Code");
-        txtCode.setRequired(true);
-
-        Label labelCode = new Label();
-        labelCode.setText("Code");
-
-        groupCode.setItemLabel(labelCode);
-        groupCode.setItemInput(txtCode);
-
-        FormGroupInputText groupName = new FormGroupInputText();
-        groupName.setHasId(true);
-        InputText txtName = new InputText();
-        txtName.setId("idName");
-        txtName.setClassName("form-control");
-        txtName.setFieldName("name");
-        txtName.setPlaceHolder("Name");
-        txtName.setRequired(true);
-
-        Label labelName = new Label();
-        labelName.setText("Name");
-
-        groupName.setItemLabel(labelName);
-        groupName.setItemInput(txtName);
-
-        FormGroupTextArea groupRemarks = new FormGroupTextArea();
-        groupRemarks.setHasId(true);
-        InputTextArea txtRemarks  = new InputTextArea();
-        txtRemarks.setId("idRemarks");
-        txtRemarks.setClassName("form-control");
-        txtRemarks.setPlaceHolder(null);
-        txtRemarks.setRequired(false);
-        txtRemarks.setFieldName("remarks");
-        txtRemarks.setRows("5");
-        txtRemarks.setCols("20");
-
-        Label labelRemarks = new Label();
-        labelRemarks.setText("Remarks");
-        groupRemarks.setItemInput(txtRemarks);
-        groupRemarks.setItemLabel(labelRemarks);
-
-        FormGroupCheckBox groupStatus = new FormGroupCheckBox();
-        InputCheckBox checkboxStatus = new InputCheckBox();
-        checkboxStatus.setFieldName("status");
-        checkboxStatus.setChecked(true);
-        checkboxStatus.setStickyLabel("Status");
-        groupStatus.setItemInput(checkboxStatus);
-
-        groupStatus.setItemLabel(null);
+        FormGroupInputText groupCode = FormGroupInputText.build("idCode", "code", "Code", "Code", true);
+        FormGroupInputText groupName = FormGroupInputText.build("idName", "name", "Name", "Name", true);
+        FormGroupTextArea groupRemarks = FormGroupTextArea.build("idRemarks", "remarks", "5", "20", "Remarks");
+        FormGroupCheckBox groupStatus = FormGroupCheckBox.build("status", "Status");
 
         result.add(groupCode);
         result.add(groupName);
@@ -213,15 +163,17 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
     }
 
     @Override
+    public List<Object> getFormSearch() {
+        List<Object> result = new ArrayList<>();
+        result.add(FormGroupInputText.build("searchId", "search", "Input Keyword", "Search", false));
+        return result;
+    }
+
+    @Override
     public List<Object> getFormButtons() {
         List<Object> result = new ArrayList<>();
-        ButtonReset buttonReset = new ButtonReset();
-        buttonReset.setText("Reset");
-        ButtonSubmit buttonSubmit = new ButtonSubmit();
-        buttonSubmit.setText("Save");
-
-        result.add(buttonReset);
-        result.add(buttonSubmit);
+        result.add(ButtonReset.build("Reset"));
+        result.add(ButtonSubmit.build("Save"));
         return result;
     }
 

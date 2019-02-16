@@ -25,4 +25,10 @@ public class ButtonSubmit implements Serializable {
 
     @Builder.Default
     private String iconClassName = "fa fa-floppy-o";
+
+    public static ButtonSubmit build(String p_Text) {
+        ButtonSubmit result = new ButtonSubmit();
+        result.setText(p_Text);
+        return result;
+    }
 }

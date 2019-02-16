@@ -18,9 +18,9 @@
 <section class="content" layout:fragment="content">
     <div class="box col-md-12">
         <!-- Horizontal Form -->
-        <div class="box-header with-border" th:include="~{base/scaffolding/form-vui/scaffolding-form-vui-header :: scaffolding-form-vui-header}"></div>
+        <div class="box-header with-border" th:include="~{base/scaffolding/form/scaffolding-form-header :: scaffolding-form-header}"></div>
         <!-- form start -->
-        <form class="form-horizontal formInsert" action="#" th:action="${actionLink}" th:method="POST" th:object="${requestFormVUI}" th:include="~{base/form/form-vui :: form-vui}"></form>
+        <form class="form-horizontal form-insert" action="#" th:action="${actionLink}" th:method="POST" th:object="${requestFormVUI}" th:include="~{base/form/form-vui :: form-vui}"></form>
         <!-- /.box -->
     </div>
 </section>

@@ -2,7 +2,7 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{base/scaffolding/form-vui/scaffolding-form-vu.html}"
+      layout:decorate="~{base/scaffolding/form/scaffolding-form-vu.html}"
         >
 
 <form class="form-horizontal formVUDepartment" th:action="${actionLink}"  th:method="POST" th:object="${requestFormVU}" layout:fragment="form-vu">
@@ -42,9 +42,9 @@
                 <label for="department" class="col-sm-2 control-label">Department</label>
                 <div class="col-sm-10">
                     <div>
-                        <select id="department" th:class="form-control"  th:field="*{departmentId}" th:disabled="${viewMode}">
+                        <select id="department" th:class="form-control"  name="departmentId" th:disabled="${viewMode}">
                             <span th:each="lov : ${lovDepartment}">
-                                <option th:value="${lov.key}" th:text="${lov.value}" th:selected="${requestFormVU.department.id}"></option>
+                                <option th:value="${lov.key}" th:text="${lov.value}" th:selected="${lov.key == requestFormVU.department.id}"></option>
                             </span>
                         </select>
                     </div>

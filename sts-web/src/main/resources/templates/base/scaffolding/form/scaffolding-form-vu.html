@@ -18,7 +18,7 @@
 <section class="content" layout:fragment="content">
     <div class="box col-md-12">
         <!-- Horizontal Form -->
-        <div class="box-header with-border" th:include="~{base/scaffolding/form-vui/scaffolding-form-vui-header :: scaffolding-form-vui-header}"></div>
+        <div class="box-header with-border" th:include="~{base/scaffolding/form/scaffolding-form-header :: scaffolding-form-header}"></div>
         <!-- form start -->
         <div layout:fragment="form-vu">
             <form class="form-horizontal formViewUpdate" action="#" th:action="${actionLink}" th:method="POST" th:object="${requestFormVUI}"></form>
