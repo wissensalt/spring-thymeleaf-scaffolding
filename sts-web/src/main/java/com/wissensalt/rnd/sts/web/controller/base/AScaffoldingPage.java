@@ -1,4 +1,4 @@
-package com.wissensalt.rnd.sts.web.controller;
+package com.wissensalt.rnd.sts.web.controller.base;
 
 import com.wissensalt.rnd.sts.shared.data.dto.request.RequestPaginationDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponsePaginationDTO;
@@ -55,6 +55,7 @@ public abstract class AScaffoldingPage<REQUEST, REQUEST_UPDATE> implements IScaf
             p_Model.addAttribute("startElement", 0);
         }
 
+        p_Model.addAttribute("searchFormElements", getSearchFormElements(basicAuth));
         p_Model.addAttribute("paginationButtons", ButtonPagination.buildStartPagination(responsePage, getPaginationURL()));
         return getIndexURL();
     }
@@ -84,7 +85,7 @@ public abstract class AScaffoldingPage<REQUEST, REQUEST_UPDATE> implements IScaf
             p_Model.addAttribute("startElement", 0);
         }
 
-        p_Model.addAttribute("formSearch", getFormSearch());
+        p_Model.addAttribute("searchFormElements", getSearchFormElements(basicAuth));
         p_Model.addAttribute("paginationButtons", ButtonPagination.buildChangedPagination(responsePage, getPaginationURL(), p_Size));
         return getIndexURL();
     }
@@ -97,7 +98,7 @@ public abstract class AScaffoldingPage<REQUEST, REQUEST_UPDATE> implements IScaf
         setBasicModelAttributes(p_Model, "NEW");
         p_Model.addAttribute("scaffoldingBackLink", getScaffoldingBackURL());
         p_Model.addAttribute("actionLink", getInsertProcessURL());
-        p_Model.addAttribute("formGroup", getFormInput(basicAuth));
+        p_Model.addAttribute("formElements", getInsertFormElements(basicAuth));
         p_Model.addAttribute("formButtons", getFormButtons());
         p_Model.addAttribute("requestFormVUI", getSingleObjectRequest());
         return getInsertURL();
@@ -110,8 +111,11 @@ public abstract class AScaffoldingPage<REQUEST, REQUEST_UPDATE> implements IScaf
 
         setBasicModelAttributes(p_Model, "VIEW");
         p_Model.addAttribute("scaffoldingBackLink", getScaffoldingBackURL());
-        p_Model.addAttribute("requestFormVU", getSingleObjectResponse(basicAuth, p_Id));
+        REQUEST_UPDATE responseObject = getSingleObjectResponse(basicAuth, p_Id);
+        p_Model.addAttribute("requestFormVU", responseObject);
         p_Model.addAttribute("viewMode", true);
+
+        p_Model.addAttribute("formElements", getViewFormElements(basicAuth, responseObject));
         return getViewURL();
     }
 
@@ -122,8 +126,11 @@ public abstract class AScaffoldingPage<REQUEST, REQUEST_UPDATE> implements IScaf
         setBasicModelAttributes(p_Model, "UPDATE");
         p_Model.addAttribute("scaffoldingBackLink", getScaffoldingBackURL());
         p_Model.addAttribute("actionLink", getUpdateProcessURL());
-        p_Model.addAttribute("requestFormVU", getSingleObjectResponse(basicAuth, p_Id));
+        REQUEST_UPDATE responseObject = getSingleObjectResponse(basicAuth, p_Id);
+        p_Model.addAttribute("requestFormVU", responseObject);
         p_Model.addAttribute("viewMode", false);
+
+        p_Model.addAttribute("formElements", getUpdateFormElements(basicAuth, responseObject));
         return getViewURL();
     }
 
@@ -169,14 +176,13 @@ public abstract class AScaffoldingPage<REQUEST, REQUEST_UPDATE> implements IScaf
     public abstract String getHeadTitle();
     public abstract String getPageTitle();
 
-    public abstract List<Object> getFormSearch();
-
     public abstract REQUEST getSingleObjectRequest();
     public abstract REQUEST_UPDATE getSingleObjectResponse(String p_BasicAuth, Long p_Id);
 
-    public List<Object> getFormInput(String p_BasicAuth) {
-        return getDefaultFormInput();
-    }
+    public abstract List<String> getInsertFormElements(String p_BasicAuth);
+    public abstract List<String> getViewFormElements(String p_BasicAuth, REQUEST_UPDATE p_ObjectResponse);
+    public abstract List<String> getUpdateFormElements(String p_BasicAuth, REQUEST_UPDATE p_ObjectResponse);
+    public abstract List<String> getSearchFormElements(String p_BasicAuth);
 
     public List<Object> getFormButtons() {
         return getDefaultFormButtons();
@@ -201,7 +207,7 @@ public abstract class AScaffoldingPage<REQUEST, REQUEST_UPDATE> implements IScaf
         return result;
     }
 
-    protected List<Object> getDefaultFormInput () {
+    protected List<Object> getDefaultFormInsert() {
         List<Object> result = new ArrayList<>();
 
         FormGroupInputText groupCode = FormGroupInputText.build("idCode", "code", "Code", "Code", true);

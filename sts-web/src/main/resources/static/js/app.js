@@ -226,11 +226,11 @@ $('.btnReset').on('click', function () {
 $('.btnSave').on('click', function(e){
     e.preventDefault();
     var formInsert = $('.form-insert');
-    alert(form-insert.attr('action'));
+    alert(formInsert.attr('action'));
     $.ajax({
         type: 'POST',
-        url: form-insert.attr('action'),                           // Any URL
-        data: form-insert.serialize(),                 // Serialize the form data
+        url: formInsert.attr('action'),                           // Any URL
+        data: formInsert.serialize(),                 // Serialize the form data
         success: function (data) {                        // If 200 OK
             alert('Success response: ' + data);
         },

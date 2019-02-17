@@ -1,4 +1,4 @@
-package com.wissensalt.rnd.sts.web.controller;
+package com.wissensalt.rnd.sts.web.controller.impl;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

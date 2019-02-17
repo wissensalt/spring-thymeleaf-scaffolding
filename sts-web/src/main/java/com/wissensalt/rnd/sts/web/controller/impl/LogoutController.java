@@ -1,4 +1,4 @@
-package com.wissensalt.rnd.sts.web.controller;
+package com.wissensalt.rnd.sts.web.controller.impl;
 
 import com.wissensalt.rnd.sts.web.CookieUtil;
 import org.springframework.security.core.Authentication;

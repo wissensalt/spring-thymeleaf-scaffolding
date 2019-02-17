@@ -42,4 +42,31 @@ public class FormGroupLOV implements Serializable {
 
         return result;
     }
+
+    public static String build(String p_Id, String p_LabelText, String p_Name, boolean p_Disabled, List<ResponseLOVDTO> p_DATAs, Long p_Selected) {
+        String content = "";
+        for (ResponseLOVDTO lov : p_DATAs) {
+            if (lov.getKey().equals(p_Selected)) {
+                content += "<option value="+lov.getKey()+" selected=\"selected\">"+lov.getValue()+"</option>";
+            }else {
+                content += "<option value="+lov.getKey()+">"+lov.getValue()+"</option>";
+            }
+        }
+
+        String disabled = "";
+        if (p_Disabled) {
+            disabled = "disabled=\"disabled\"";
+        }
+
+        return "<div class=\"form-group\">" +
+                "                <label for=\""+p_Id+"\" class=\"col-sm-2 control-label\">"+p_LabelText+"</label>" +
+                "                <div class=\"col-sm-10\">" +
+                "                    <div>" +
+                "                        <select id=\""+p_Id+"\" class=\"form-control\"  name=\""+p_Name+"\" "+disabled+">" +
+                                            content +
+                "                        </select>" +
+                "                    </div>" +
+                "                </div>" +
+                "            </div>";
+    }
 }

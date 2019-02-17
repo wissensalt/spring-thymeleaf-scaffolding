@@ -4,7 +4,7 @@ import com.wissensalt.rnd.sts.shared.data.dto.request.RequestInsertEmployeeDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseEmployeeDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseLOVDTO;
 import com.wissensalt.rnd.sts.web.SessionUtil;
-import com.wissensalt.rnd.sts.web.controller.AScaffoldingPage;
+import com.wissensalt.rnd.sts.web.controller.base.AScaffoldingPage;
 import com.wissensalt.rnd.sts.web.feign.impl.DepartmentClientImpl;
 import com.wissensalt.rnd.sts.web.feign.impl.EmployeeClientImpl;
 import com.wissensalt.rnd.sts.web.webcomponent.*;
@@ -164,28 +164,53 @@ public class EmployeeController extends AScaffoldingPage<RequestInsertEmployeeDT
     }
 
     @Override
-    public List<Object> getFormInput(String p_BasicAuth) {
-        List<Object> result = new ArrayList<>();
+    public List<String > getInsertFormElements(String p_BasicAuth) {
+        List<ResponseLOVDTO> lovDepartment = departmentClient.selectLOV(p_BasicAuth);
+        List<String> result = new ArrayList<>();
 
-        FormGroupInputText groupCode = FormGroupInputText.build("idCode", "code", "Code", "Code", true);
-        FormGroupInputText groupName = FormGroupInputText.build("idName", "name", "Name", "Name", true);
-        FormGroupInputNumber groupSalary = FormGroupInputNumber.build("idSalary", "salary", "Salary", "Salary");
-        FormGroupTextArea groupRemarks = FormGroupTextArea.build("idRemarks", "remarks", "5", "20", "Remarks");
-        FormGroupLOV groupLOV = FormGroupLOV.build("idLovDepartment", "departmentId", departmentClient.selectLOV(p_BasicAuth), "Department");
-        FormGroupCheckBox groupStatus = FormGroupCheckBox.build("status", "Status");
+        result.add(FormGroupInputText.build("code", "code", "Code", "Code", true, "", null, false));
+        result.add(FormGroupInputText.build("name", "name", "Name", "Name", true, "", null, false));
+        result.add(FormGroupInputNumber.build("salary", "Salary", "Salary", "salary", "", "required", false));
+        result.add(FormGroupLOV.build("department", "Department", "departmentId", false, lovDepartment, null));
+        result.add(FormGroupTextArea.build("remarks", "remarks", "Remarks", "Remarks", "5", "20", "", false));
+        result.add(FormGroupCheckBox.build("status", "status", true, false));
 
-        result.add(groupCode);
-        result.add(groupName);
-        result.add(groupLOV);
-        result.add(groupSalary);
-        result.add(groupRemarks);
-        result.add(groupStatus);
         return result;
     }
 
     @Override
-    public List<Object> getFormSearch() {
-        return null;
+    public List<String> getViewFormElements(String p_BasicAuth, ResponseEmployeeDTO p_ObjectResponse) {
+        List<ResponseLOVDTO> lovDepartment = departmentClient.selectLOV(p_BasicAuth);
+
+        List<String> result = new ArrayList<>();
+        result.add(FormGroupInputText.build("id", "id", "Id", "Id", true, String.valueOf(p_ObjectResponse.getId()), "readonly", false));
+        result.add(FormGroupInputText.build("code", "code", "Code", "Code", true, p_ObjectResponse.getCode(), null, true));
+        result.add(FormGroupInputText.build("name", "name", "Name", "Name", true, p_ObjectResponse.getName(), null, true));
+        result.add(FormGroupLOV.build("departmentId", "Department", "departmentId", true, lovDepartment, p_ObjectResponse.getDepartment().getId()));
+        result.add(FormGroupTextArea.build("remarks", "remarks", "Remarks", "Remarks", "5", "20", p_ObjectResponse.getRemarks(), true));
+        result.add(FormGroupCheckBox.build("status", "status", p_ObjectResponse.getStatus(), true));
+        return result;
+    }
+
+    @Override
+    public List<String> getUpdateFormElements(String p_BasicAuth, ResponseEmployeeDTO p_ObjectResponse) {
+        List<ResponseLOVDTO> lovDepartment = departmentClient.selectLOV(p_BasicAuth);
+
+        List<String> result = new ArrayList<>();
+        result.add(FormGroupInputText.build("id", "id", "Id", "Id", true, String.valueOf(p_ObjectResponse.getId()), "readonly", false));
+        result.add(FormGroupInputText.build("code", "code", "Code", "Code", true, p_ObjectResponse.getCode(), null, false));
+        result.add(FormGroupInputText.build("name", "name", "Name", "Name", true, p_ObjectResponse.getName(), null, false));
+        result.add(FormGroupLOV.build("departmentId", "Department", "departmentId", false, lovDepartment, p_ObjectResponse.getDepartment().getId()));
+        result.add(FormGroupTextArea.build("remarks", "remarks", "Remarks", "Remarks",  "5", "20", p_ObjectResponse.getRemarks(), false));
+        result.add(FormGroupCheckBox.build("status", "status", p_ObjectResponse.getStatus(), false));
+        return result;
+    }
+
+    @Override
+    public List<String> getSearchFormElements(String p_BasicAuth) {
+        List<String> result = new ArrayList<>();
+        result.add(FormGroupInputText.build("search", "search", "Search", "Input Keyword", false, "", null, false));
+        return result;
     }
 
     @PostConstruct

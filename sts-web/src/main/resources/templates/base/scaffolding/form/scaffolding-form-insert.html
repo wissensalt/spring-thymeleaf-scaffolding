@@ -16,12 +16,37 @@
     <small th:text="${pageSubTitle}">Scaffolding</small>
 </h1>
 <section class="content" layout:fragment="content">
-    <div class="box col-md-12">
-        <!-- Horizontal Form -->
-        <div class="box-header with-border" th:include="~{base/scaffolding/form/scaffolding-form-header :: scaffolding-form-header}"></div>
-        <!-- form start -->
-        <form class="form-horizontal form-insert" action="#" th:action="${actionLink}" th:method="POST" th:object="${requestFormVUI}" th:include="~{base/form/form-vui :: form-vui}"></form>
-        <!-- /.box -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-default">
+                <!-- Horizontal Form -->
+                <div class="box-header with-border" th:include="~{base/scaffolding/form/scaffolding-form-header :: scaffolding-form-header}"></div>
+                <!-- form start -->
+                <form class="box-body form-horizontal form-insert" action="#" th:action="${actionLink}" th:method="POST" th:object="${requestFormVUI}" layout:fragment="form-insert">
+                    <div class="col-md-6">
+                        <span th:each="element : ${formElements}">
+                            <div th:utext="${element}" th:remove="tag"></div>
+                        </span>
+
+                        <div class="box-footer">
+                        <span th:each="bt: ${formButtons}" th:switch="${bt.type}" th:remove="tag">
+                            <span th:case="'btnReset'" th:remove="tag">
+                                <a th:class="${bt.className}" onclick="resetForm()">
+                                    <i th:class="${bt.iconClassName}"></i>
+                                    <div th:text="${bt.text}" th:remove="tag"></div>
+                                </a>
+                            </span>
+                            <button type="submit" th:class="${bt.className}" th:case="'btnSubmit'">
+                                <i th:class="${bt.iconClassName}"></i>
+                                <div th:text="${bt.text}" th:remove="tag"></div>
+                            </button>
+                        </span>
+                        </div>
+                    </div>
+                </form>
+                <!-- /.box -->
+            </div>
+        </div>
     </div>
 </section>
 </html>

@@ -15,12 +15,11 @@
 </head>
 
 <section class="content" layout:fragment="content">
-    <div id="alertInsertInfo" style="display: none;" th:text="${alert}"></div>
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-default">
                 <div class="box-header with-border" th:include="~{base/scaffolding/scaffolding-header :: scaffolding-header}"></div>
-                <div class="box-header with-border" th:include="~{base/scaffolding/scaffolding-form-inquiry :: scaffolding-form-inquiry}"></div>
+                <div class="box-header with-border" th:include="~{base/scaffolding/scaffolding-form-inquiry :: scaffolding-form-inquiry}" th:if="${not #lists.isEmpty(searchFormElements)}"></div>
                 <div class="box-body contentTable">
                     <div class="dataTables_wrapper form-inline dt-bootstrap">
                         <div class="row" th:include="~{base/scaffolding/scaffolding-lov-show-number :: scaffolding-lov-show-number}"></div>

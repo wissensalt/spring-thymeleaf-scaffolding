@@ -3,7 +3,7 @@ package com.wissensalt.rnd.sts.web.controller.department;
 import com.wissensalt.rnd.sts.shared.data.dto.request.RequestInsertDepartmentDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDepartmentDTO;
 import com.wissensalt.rnd.sts.web.SessionUtil;
-import com.wissensalt.rnd.sts.web.controller.AScaffoldingPage;
+import com.wissensalt.rnd.sts.web.controller.base.AScaffoldingPage;
 import com.wissensalt.rnd.sts.web.feign.impl.DepartmentClientImpl;
 import com.wissensalt.rnd.sts.web.webcomponent.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,10 +140,46 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
     }
 
     @Override
-    public List<Object> getFormSearch() {
-        List<Object> result = new ArrayList<>();
-        result.add(FormGroupInputText.build("searchId", "search", "Input Keyword", "Search", false));
+    public List<String> getSearchFormElements(String p_BasicAuth) {
+        List<String> result = new ArrayList<>();
+        result.add(FormGroupInputText.build("search", "search", "Search", "Input Keyword", false, "", null, false));
         return result;
+    }
+
+    @Override
+    public List<String> getInsertFormElements(String p_BasicAuth) {
+        List<String> result = new ArrayList<>();
+
+        result.add(FormGroupInputText.build("code", "code", "Code", "Code", true, "", null, false));
+        result.add(FormGroupInputText.build("name", "name", "Name", "Name", true, "", null, false));
+        result.add(FormGroupTextArea.build("remarks", "remarks", "Remarks", "Remarks", "5", "20", "", false));
+        result.add(FormGroupCheckBox.build("status", "status", true, false));
+
+        return result;
+    }
+
+    @Override
+    public List<String> getViewFormElements(String p_BasicAuth, ResponseDepartmentDTO p_ObjectResponse) {
+        List<String> form = new ArrayList<>();
+        form.add(FormGroupInputText.build("id", "id", "Id", "Id", true, String.valueOf(p_ObjectResponse.getId()), "readonly", false));
+        form.add(FormGroupInputText.build("code", "code", "Code", "Code", false, p_ObjectResponse.getCode(), "readonly", true));
+        form.add(FormGroupInputText.build("name", "name", "Name", "Name", false, p_ObjectResponse.getName(), "readonly", true));
+        form.add(FormGroupTextArea.build("remarks", "remarks", "Remarks", "Remarks", "5", "20", p_ObjectResponse.getRemarks(), true));
+        form.add(FormGroupCheckBox.build("status", "status", p_ObjectResponse.getStatus(), true));
+
+        return form;
+    }
+
+    @Override
+    public List<String> getUpdateFormElements(String p_BasicAuth, ResponseDepartmentDTO p_ObjectResponse) {
+        List<String> form = new ArrayList<>();
+        form.add(FormGroupInputText.build("id", "id", "Id", "Id", true, String.valueOf(p_ObjectResponse.getId()), null, false));
+        form.add(FormGroupInputText.build("code", "code", "Code", "Code", true, p_ObjectResponse.getCode(), null, false));
+        form.add(FormGroupInputText.build("name", "name", "Name", "Name", true, p_ObjectResponse.getName(), null, false));
+        form.add(FormGroupTextArea.build("remarks", "remarks", "Remarks", "Remarks", "5", "20", p_ObjectResponse.getRemarks(), false));
+        form.add(FormGroupCheckBox.build("status", "status", p_ObjectResponse.getStatus(), false));
+
+        return form;
     }
 
     @PostConstruct
