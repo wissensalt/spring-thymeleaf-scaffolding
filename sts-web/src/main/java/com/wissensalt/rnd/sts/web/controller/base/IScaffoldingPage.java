@@ -1,4 +1,4 @@
-package com.wissensalt.rnd.sts.web.controller;
+package com.wissensalt.rnd.sts.web.controller.base;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

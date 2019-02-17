@@ -1,6 +1,7 @@
-package com.wissensalt.rnd.sts.web.controller;
+package com.wissensalt.rnd.sts.web.controller.impl;
 
 import com.wissensalt.rnd.sts.web.SessionUtil;
+import com.wissensalt.rnd.sts.web.controller.base.ASimplePage;
 import com.wissensalt.rnd.sts.web.feign.impl.DepartmentClientImpl;
 import com.wissensalt.rnd.sts.web.feign.impl.EmployeeClientImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 @RequestMapping("/secured/dashboard")
-public class DashboardController implements ISimplePage {
+public class DashboardController extends ASimplePage {
 
     @Autowired
     private DepartmentClientImpl departmentClient;
@@ -32,8 +33,22 @@ public class DashboardController implements ISimplePage {
         String basicAuth = SessionUtil.getBasicAuth(p_HttpServletRequest);
         p_Model.addAttribute("nDepartment", departmentClient.count(basicAuth).getResponseMsg());
         p_Model.addAttribute("nEmployee", employeeClient.count(basicAuth).getResponseMsg());
-        p_Model.addAttribute("pageTitle", "Dashboard");
-        p_Model.addAttribute("headTitle", "STS - Dashboard");
+
+        return super.display(p_Model, p_HttpServletRequest);
+    }
+
+    @Override
+    public String getDisplayURL() {
         return "/page/dashboard";
+    }
+
+    @Override
+    public String getPageTitle() {
+        return "Dashboard";
+    }
+
+    @Override
+    public String getHeadTitle() {
+        return "STS - Dashboard";
     }
 }

@@ -40,4 +40,17 @@ public class FormGroupTextArea implements Serializable {
 
         return result;
     }
+
+    public static String build(String p_Id, String p_Name, String p_LabelText, String p_PlaceHolder, String p_Rows, String p_Cols, String p_Value, boolean p_Disabled) {
+        String result = "<div class=\"form-group\">" +
+                "                <label for=\""+p_Id+"\" class=\"col-sm-2 control-label\">"+p_LabelText+"</label>" +
+                "                <div class=\"col-sm-10\">" +
+                "                    <textarea class=\"form-control\" id=\""+p_Id+"\"  placeholder=\""+p_PlaceHolder+"\" name="+p_Name+" rows=\""+p_Rows+"\" cols=\""+p_Cols+"\" ";
+        if (p_Disabled) {
+            result += " disabled=disabled>"+p_Value+"</textarea></div></div>";
+        }else {
+            result += ">"+p_Value+"</textarea></div></div>";
+        }
+        return result;
+    }
 }

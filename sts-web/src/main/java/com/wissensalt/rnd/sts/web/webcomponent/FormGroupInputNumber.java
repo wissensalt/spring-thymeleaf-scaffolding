@@ -40,4 +40,17 @@ public class FormGroupInputNumber implements Serializable {
 
         return result;
     }
+
+    public static String build(String p_Id, String p_LabelText, String p_PlaceHolder, String p_Name, String p_Value, String p_Required, boolean p_Disabled) {
+        String disabled = "";
+        if (p_Disabled) {
+            disabled = "disabled=\"disabled\"";
+        }
+        return "<div class=\"form-group\">" +
+                "                <label for=\""+p_Id+"\" class=\"col-sm-2 control-label\">"+p_LabelText+"</label>" +
+                "                <div class=\"col-sm-10\">" +
+                "                    <input type=\"number\" class=\"form-control\" id=\""+p_Id+"\" placeholder=\""+p_PlaceHolder+"\" "+p_Required+" value=\""+p_Value+"\" name=\""+p_Name+"\" "+disabled+">" +
+                "                </div>" +
+                "            </div>";
+    }
 }

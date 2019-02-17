@@ -1,4 +1,4 @@
-package com.wissensalt.rnd.sts.web.controller;
+package com.wissensalt.rnd.sts.web.controller.base;
 
 import org.springframework.ui.Model;
 
@@ -12,4 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 public interface ISimplePage {
 
     String display(Model p_Model, HttpServletRequest p_HttpServletRequest);
+
+    String getDisplayURL();
+
+    String getPageTitle();
+
+    String getHeadTitle();
 }
