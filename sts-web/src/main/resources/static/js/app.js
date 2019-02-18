@@ -240,6 +240,11 @@ $('.btnSave').on('click', function(e){
     });
 });
 
+$('#bt-scaffolding-search').on('click', function(e) {
+    e.preventDefault();
+   alert('oke');
+});
+
 
 content = $('.content');
 table = $('.tableLoader');
