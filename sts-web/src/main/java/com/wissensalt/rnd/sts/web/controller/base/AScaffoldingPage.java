@@ -48,15 +48,15 @@ public abstract class AScaffoldingPage<REQUEST, REQUEST_UPDATE> implements IScaf
         p_Model.addAttribute("entityName", getEntityName());
         ResponsePaginationDTO<REQUEST_UPDATE> responsePage = scaffoldingClient.conductFindPagination(basicAuth, paginationDTO);
         p_Model.addAttribute("items", responsePage);
+        p_Model.addAttribute("searchFormElements", getSearchFormElements(basicAuth));
+        p_Model.addAttribute("paginationButtons", ButtonPagination.buildStartPagination(responsePage, getPaginationURL()));
+
         if (!responsePage.isEmpty()) {
             p_Model.addAttribute("startElement", (responsePage.getNumberOfElements() * responsePage.getNumber() +1));
             p_Model.addAttribute("numberOfElements", (responsePage.getNumberOfElements() * responsePage.getNumber() +responsePage.getNumberOfElements()));
         }else {
             p_Model.addAttribute("startElement", 0);
         }
-
-        p_Model.addAttribute("searchFormElements", getSearchFormElements(basicAuth));
-        p_Model.addAttribute("paginationButtons", ButtonPagination.buildStartPagination(responsePage, getPaginationURL()));
         return getIndexURL();
     }
 
@@ -78,15 +78,15 @@ public abstract class AScaffoldingPage<REQUEST, REQUEST_UPDATE> implements IScaf
         p_Model.addAttribute("entityName", getEntityName());
         ResponsePaginationDTO<REQUEST_UPDATE> responsePage = scaffoldingClient.conductFindPagination(basicAuth, paginationDTO);
         p_Model.addAttribute("items", responsePage);
+        p_Model.addAttribute("searchFormElements", getSearchFormElements(basicAuth));
+        p_Model.addAttribute("paginationButtons", ButtonPagination.buildChangedPagination(responsePage, getPaginationURL(), p_Size));
+
         if (!responsePage.isEmpty()) {
             p_Model.addAttribute("startElement", (responsePage.getSize() * responsePage.getNumber() +1));
             p_Model.addAttribute("numberOfElements", (responsePage.getSize() * responsePage.getNumber() + responsePage.getNumberOfElements()));
         }else {
             p_Model.addAttribute("startElement", 0);
         }
-
-        p_Model.addAttribute("searchFormElements", getSearchFormElements(basicAuth));
-        p_Model.addAttribute("paginationButtons", ButtonPagination.buildChangedPagination(responsePage, getPaginationURL(), p_Size));
         return getIndexURL();
     }
 

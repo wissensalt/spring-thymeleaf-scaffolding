@@ -110,13 +110,19 @@ public class ButtonPagination implements Serializable {
                     buttonPaginations.add(getIndexedButton(a, p_ResponsePage.getNumber(), p_PaginationUrl, p_Size));
                 }
             }else {
-                if (((p_ResponsePage.getNumber()+2) <= p_ResponsePage.getTotalPages()) && (p_ResponsePage.getNumber()-2 >0)) {
-                    for (int a=p_ResponsePage.getNumber()-3; a<p_ResponsePage.getNumber()+2; a++) {
+                if (((p_ResponsePage.getNumber()+3) <= p_ResponsePage.getTotalPages()) && (p_ResponsePage.getNumber()-2 >0)) {
+                    for (int a=p_ResponsePage.getNumber()-2; a<p_ResponsePage.getNumber()+3; a++) {
                         buttonPaginations.add(getIndexedButton(a, p_ResponsePage.getNumber(), p_PaginationUrl, p_Size));
                     }
                 }else {
-                    for (int a=p_ResponsePage.getNumber()-4; a<p_ResponsePage.getTotalPages(); a++) {
-                        buttonPaginations.add(getIndexedButton(a, p_ResponsePage.getNumber(), p_PaginationUrl, p_Size));
+                    if (p_ResponsePage.getNumber() + 2 == p_ResponsePage.getTotalPages()) {
+                        for (int a=p_ResponsePage.getNumber()-3; a<p_ResponsePage.getTotalPages(); a++) {
+                            buttonPaginations.add(getIndexedButton(a, p_ResponsePage.getNumber(), p_PaginationUrl, p_Size));
+                        }
+                    }else {
+                        for (int a=p_ResponsePage.getNumber()-4; a<p_ResponsePage.getTotalPages(); a++) {
+                            buttonPaginations.add(getIndexedButton(a, p_ResponsePage.getNumber(), p_PaginationUrl, p_Size));
+                        }
                     }
                 }
             }
