@@ -1,9 +1,11 @@
 package com.wissensalt.rnd.sts.web.feign;
 
+import com.wissensalt.rnd.sts.shared.data.dto.request.RequestPaginationCustom;
 import com.wissensalt.rnd.sts.shared.data.dto.request.RequestPaginationDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDataDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseLOVDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponsePaginationDTO;
+import feign.Param;
 
 import java.util.List;
 
@@ -31,4 +33,6 @@ public interface IScaffoldingClient<REQUEST, RESPONSE> {
     List<ResponseLOVDTO> selectLOV(String p_BasicAuth);
 
     ResponseDataDTO count(String p_BasicAuth);
+
+    ResponsePaginationDTO<RESPONSE> findPaginationCustom(@Param("auth") String p_BasicAuth, RequestPaginationCustom p_RequestPaginationCustom);
 }

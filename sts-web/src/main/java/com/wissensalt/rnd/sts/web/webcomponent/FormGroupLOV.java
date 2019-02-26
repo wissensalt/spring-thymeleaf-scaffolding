@@ -43,7 +43,7 @@ public class FormGroupLOV implements Serializable {
         return result;
     }
 
-    public static String build(String p_Id, String p_LabelText, String p_Name, boolean p_Disabled, List<ResponseLOVDTO> p_DATAs, Long p_Selected) {
+    public static String build(String p_Id, String p_LabelText, String p_Name, boolean p_Disabled, List<ResponseLOVDTO> p_DATAs, String p_Selected) {
         String content = "";
         for (ResponseLOVDTO lov : p_DATAs) {
             if (lov.getKey().equals(p_Selected)) {

@@ -1,6 +1,7 @@
 package com.wissensalt.rnd.sts.web.feign.impl;
 
 import com.wissensalt.rnd.sts.shared.data.dto.request.RequestInsertEmployeeDTO;
+import com.wissensalt.rnd.sts.shared.data.dto.request.RequestPaginationCustom;
 import com.wissensalt.rnd.sts.shared.data.dto.request.RequestPaginationDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDataDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseEmployeeDTO;
@@ -9,6 +10,7 @@ import com.wissensalt.rnd.sts.shared.data.dto.response.ResponsePaginationDTO;
 import com.wissensalt.rnd.sts.web.feign.FeignBuilderFactory;
 import com.wissensalt.rnd.sts.web.feign.IEmployeeClient;
 import com.wissensalt.rnd.sts.web.feign.IScaffoldingClient;
+import feign.Param;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -65,6 +67,11 @@ public class EmployeeClientImpl implements IScaffoldingClient<RequestInsertEmplo
     public ResponseDataDTO count(String p_BasicAuth) {
         IEmployeeClient employeeClient = FeignBuilderFactory.createClient(IEmployeeClient.class, apiBasePath);
         return employeeClient.count("Basic " + p_BasicAuth);
+    }
+
+    @Override
+    public ResponsePaginationDTO<ResponseEmployeeDTO> findPaginationCustom(@Param("auth") String p_BasicAuth, RequestPaginationCustom p_RequestPaginationCustom) {
+        return null;
     }
 
     @Override

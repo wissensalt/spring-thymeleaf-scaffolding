@@ -1,6 +1,7 @@
 package com.wissensalt.rnd.sts.web.controller.ajax;
 
 import com.wissensalt.rnd.sts.shared.data.dto.request.RequestInsertDepartmentDTO;
+import com.wissensalt.rnd.sts.shared.data.dto.request.RequestPaginationCustom;
 import com.wissensalt.rnd.sts.shared.data.dto.request.RequestPaginationDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDataDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDepartmentDTO;
@@ -39,6 +40,11 @@ public class AjaxDepartment {
         paginationDTO.setSort("id");
 
         return departmentClient.conductFindPagination(SessionUtil.getBasicAuth(p_HttpServletRequest), paginationDTO);
+    }
+
+    @PostMapping("/search")
+    public ResponsePaginationDTO<ResponseDepartmentDTO> findPaginationCustom(HttpServletRequest p_HttpServletRequest, @RequestBody RequestPaginationCustom requestPaginationCustom) {
+        return departmentClient.findPaginationCustom(SessionUtil.getBasicAuth(p_HttpServletRequest), requestPaginationCustom);
     }
 
     @GetMapping("/delete")

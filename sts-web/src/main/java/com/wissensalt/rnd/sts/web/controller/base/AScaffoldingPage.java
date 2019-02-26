@@ -1,5 +1,6 @@
 package com.wissensalt.rnd.sts.web.controller.base;
 
+import com.wissensalt.rnd.sts.shared.data.dto.request.RequestPaginationCustom;
 import com.wissensalt.rnd.sts.shared.data.dto.request.RequestPaginationDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponsePaginationDTO;
 import com.wissensalt.rnd.sts.web.SessionUtil;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -26,7 +28,7 @@ import java.util.List;
  * @param <REQUEST_UPDATE>
  */
 @Controller
-public abstract class AScaffoldingPage<REQUEST, REQUEST_UPDATE> implements IScaffoldingPage {
+public abstract class AScaffoldingPage<REQUEST, REQUEST_UPDATE> implements IScaffoldingPage<REQUEST_UPDATE> {
 
     protected IScaffoldingClient scaffoldingClient;
 
@@ -45,6 +47,7 @@ public abstract class AScaffoldingPage<REQUEST, REQUEST_UPDATE> implements IScaf
         HttpSession session = p_HttpServletRequest.getSession(true);
         String basicAuth = (String) session.getAttribute("basicAuth");
 
+        p_Model.addAttribute("searchURL", "/secured/department/search");
         p_Model.addAttribute("entityName", getEntityName());
         ResponsePaginationDTO<REQUEST_UPDATE> responsePage = scaffoldingClient.conductFindPagination(basicAuth, paginationDTO);
         p_Model.addAttribute("items", responsePage);
@@ -54,6 +57,34 @@ public abstract class AScaffoldingPage<REQUEST, REQUEST_UPDATE> implements IScaf
         if (!responsePage.isEmpty()) {
             p_Model.addAttribute("startElement", (responsePage.getNumberOfElements() * responsePage.getNumber() +1));
             p_Model.addAttribute("numberOfElements", (responsePage.getNumberOfElements() * responsePage.getNumber() +responsePage.getNumberOfElements()));
+        }else {
+            p_Model.addAttribute("startElement", 0);
+        }
+        return getIndexURL();
+    }
+
+
+    @Override
+    public String displaySearchResult(Model p_Model, HttpServletRequest p_HttpServletRequest, @RequestBody RequestPaginationCustom requestPaginationCustom) {
+        setBasicModelAttributes(p_Model, null);
+        p_Model.addAttribute("scaffoldingCreateLink", getScaffoldingCreateURL());
+        p_Model.addAttribute("tableHeaders", getTableColumns());
+        HttpSession session = p_HttpServletRequest.getSession(true);
+        String basicAuth = (String) session.getAttribute("basicAuth");
+
+        p_Model.addAttribute("entityName", getEntityName());
+        requestPaginationCustom.setOffset(0);
+        requestPaginationCustom.setLimit(5);
+
+        ResponsePaginationDTO<REQUEST_UPDATE> response =  scaffoldingClient.findPaginationCustom(SessionUtil.getBasicAuth(p_HttpServletRequest), requestPaginationCustom);
+
+        p_Model.addAttribute("items", response);
+        p_Model.addAttribute("searchFormElements", getSearchFormElements(basicAuth));
+        p_Model.addAttribute("paginationButtons", ButtonPagination.buildStartPagination(response, getPaginationURL()));
+
+        if (!response.isEmpty()) {
+            p_Model.addAttribute("startElement", (response.getNumberOfElements() * response.getNumber() +1));
+            p_Model.addAttribute("numberOfElements", (response.getNumberOfElements() * response.getNumber() +response.getNumberOfElements()));
         }else {
             p_Model.addAttribute("startElement", 0);
         }

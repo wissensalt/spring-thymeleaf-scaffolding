@@ -18,6 +18,11 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class ResponseLOVDTO implements Serializable {
 
-    private Long key;
+    private String key;
     private String value;
+
+    public ResponseLOVDTO(Long key, String value) {
+        this.key = String.valueOf(key);
+        this.value = value;
+    }
 }

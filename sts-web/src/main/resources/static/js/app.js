@@ -215,9 +215,23 @@ $('.btnBack').on('click', function(e) {
     $('.content').load(linkText + ' .content');
 });
 
+$('#bt-reset').on('click', function(e) {
+    e.preventDefault();
+    var entityName = $('.scaffolding-form-inquiry').attr('entity-name');
+    if (entityName === 'department') {
+        $('#search-key').val('code');
+        $('#search-value').val('');
+    } else if (entityName === 'employee') {
+        $('#search-key').val('code');
+        $('#search-value').val('');
+    }
+
+});
+
 function resetForm() {
     $(".form-insert").trigger('reset');
 }
+
 
 $('.btnReset').on('click', function () {
     alert('oke');
@@ -238,11 +252,6 @@ $('.btnSave').on('click', function(e){
             alert('Error: ' + error);
         }
     });
-});
-
-$('#bt-scaffolding-search').on('click', function(e) {
-    e.preventDefault();
-   alert('oke');
 });
 
 

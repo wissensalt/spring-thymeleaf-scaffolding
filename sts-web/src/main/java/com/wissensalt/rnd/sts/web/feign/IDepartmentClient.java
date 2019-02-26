@@ -1,6 +1,7 @@
 package com.wissensalt.rnd.sts.web.feign;
 
 import com.wissensalt.rnd.sts.shared.data.dto.request.RequestInsertDepartmentDTO;
+import com.wissensalt.rnd.sts.shared.data.dto.request.RequestPaginationCustom;
 import com.wissensalt.rnd.sts.shared.data.dto.request.RequestPaginationDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDataDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDepartmentDTO;
@@ -50,4 +51,8 @@ public interface IDepartmentClient {
     @Headers({"Accept: application/json", "Content-Type: application/json", "Authorization: {auth}"})
     @RequestLine("GET /api/department/count")
     ResponseDataDTO count(@Param("auth") String p_BasicAuth);
+
+    @Headers({"Accept: application/json", "Content-Type: application/json", "Authorization: {auth}"})
+    @RequestLine("POST /api/department/findPaginationCustom")
+    ResponsePaginationDTO<ResponseDepartmentDTO> findPaginationCustom(@Param("auth") String p_BasicAuth, RequestPaginationCustom p_RequestPaginationCustom);
 }

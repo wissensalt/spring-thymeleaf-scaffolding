@@ -2,13 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <div class="box-header with-border" th:fragment="scaffolding-form-inquiry">
-    <form class="form-horizontal pull-left">
+    <form class="form-horizontal pull-left scaffolding-form-inquiry" method="post" th:action="${searchURL}">
             <span th:each="element : ${searchFormElements}">
                 <div th:utext="${element}" th:remove="tag"></div>
             </span>
         <button class="btn btn-primary" id="bt-scaffolding-search">
             <span class="glyphicon glyphicon-search"></span>
             Search
+        </button>
+        <button class="btn btn-warning" id="bt-reset">
+            <span class="glyphicon glyphicon-erase"></span>
+            Reset
         </button>
     </form>
 </div>

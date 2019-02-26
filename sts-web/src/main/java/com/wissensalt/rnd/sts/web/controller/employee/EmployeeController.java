@@ -186,7 +186,7 @@ public class EmployeeController extends AScaffoldingPage<RequestInsertEmployeeDT
         result.add(FormGroupInputText.build("id", "id", "Id", "Id", true, String.valueOf(p_ObjectResponse.getId()), "readonly", false));
         result.add(FormGroupInputText.build("code", "code", "Code", "Code", true, p_ObjectResponse.getCode(), null, true));
         result.add(FormGroupInputText.build("name", "name", "Name", "Name", true, p_ObjectResponse.getName(), null, true));
-        result.add(FormGroupLOV.build("departmentId", "Department", "departmentId", true, lovDepartment, p_ObjectResponse.getDepartment().getId()));
+        result.add(FormGroupLOV.build("departmentId", "Department", "departmentId", true, lovDepartment, String.valueOf(p_ObjectResponse.getDepartment().getId())));
         result.add(FormGroupTextArea.build("remarks", "remarks", "Remarks", "Remarks", "5", "20", p_ObjectResponse.getRemarks(), true));
         result.add(FormGroupCheckBox.build("status", "status", p_ObjectResponse.getStatus(), true));
         return result;
@@ -200,7 +200,7 @@ public class EmployeeController extends AScaffoldingPage<RequestInsertEmployeeDT
         result.add(FormGroupInputText.build("id", "id", "Id", "Id", true, String.valueOf(p_ObjectResponse.getId()), "readonly", false));
         result.add(FormGroupInputText.build("code", "code", "Code", "Code", true, p_ObjectResponse.getCode(), null, false));
         result.add(FormGroupInputText.build("name", "name", "Name", "Name", true, p_ObjectResponse.getName(), null, false));
-        result.add(FormGroupLOV.build("departmentId", "Department", "departmentId", false, lovDepartment, p_ObjectResponse.getDepartment().getId()));
+        result.add(FormGroupLOV.build("departmentId", "Department", "departmentId", false, lovDepartment, String.valueOf(p_ObjectResponse.getDepartment().getId())));
         result.add(FormGroupTextArea.build("remarks", "remarks", "Remarks", "Remarks",  "5", "20", p_ObjectResponse.getRemarks(), false));
         result.add(FormGroupCheckBox.build("status", "status", p_ObjectResponse.getStatus(), false));
         return result;

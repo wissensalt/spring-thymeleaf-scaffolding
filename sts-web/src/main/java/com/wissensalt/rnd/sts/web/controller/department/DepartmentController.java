@@ -2,10 +2,14 @@ package com.wissensalt.rnd.sts.web.controller.department;
 
 import com.wissensalt.rnd.sts.shared.data.dto.request.RequestInsertDepartmentDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDepartmentDTO;
+import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseLOVDTO;
 import com.wissensalt.rnd.sts.web.SessionUtil;
 import com.wissensalt.rnd.sts.web.controller.base.AScaffoldingPage;
 import com.wissensalt.rnd.sts.web.feign.impl.DepartmentClientImpl;
-import com.wissensalt.rnd.sts.web.webcomponent.*;
+import com.wissensalt.rnd.sts.web.webcomponent.FormGroupCheckBox;
+import com.wissensalt.rnd.sts.web.webcomponent.FormGroupInputText;
+import com.wissensalt.rnd.sts.web.webcomponent.FormGroupLOV;
+import com.wissensalt.rnd.sts.web.webcomponent.FormGroupTextArea;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -142,7 +146,13 @@ public class DepartmentController extends AScaffoldingPage<RequestInsertDepartme
     @Override
     public List<String> getSearchFormElements(String p_BasicAuth) {
         List<String> result = new ArrayList<>();
-        result.add(FormGroupInputText.build("search", "search", "Search", "Input Keyword", false, "", null, false));
+        List<ResponseLOVDTO> lovData = new ArrayList<>();
+        lovData.add(new ResponseLOVDTO("code", "Code"));
+        lovData.add(new ResponseLOVDTO("name", "Name"));
+        lovData.add(new ResponseLOVDTO("remarks", "Remarks"));
+
+        result.add(FormGroupLOV.build("search-key", "Key", "lovSearch", false, lovData, ""));
+        result.add(FormGroupInputText.build("search-value", "search", "Search", "Input Keyword", false, "", null, false));
         return result;
     }
 

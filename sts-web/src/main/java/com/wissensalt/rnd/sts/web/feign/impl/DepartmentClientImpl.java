@@ -1,6 +1,7 @@
 package com.wissensalt.rnd.sts.web.feign.impl;
 
 import com.wissensalt.rnd.sts.shared.data.dto.request.RequestInsertDepartmentDTO;
+import com.wissensalt.rnd.sts.shared.data.dto.request.RequestPaginationCustom;
 import com.wissensalt.rnd.sts.shared.data.dto.request.RequestPaginationDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDataDTO;
 import com.wissensalt.rnd.sts.shared.data.dto.response.ResponseDepartmentDTO;
@@ -71,5 +72,10 @@ public class DepartmentClientImpl implements IScaffoldingClient<RequestInsertDep
     public ResponseDataDTO count(String p_BasicAuth) {
         IDepartmentClient departmentClient = FeignBuilderFactory.createClient(IDepartmentClient.class, apiBasePath);
         return departmentClient.count("Basic " + p_BasicAuth);
+    }
+
+    public ResponsePaginationDTO<ResponseDepartmentDTO> findPaginationCustom(String p_BasicAuth, RequestPaginationCustom requestPaginationCustom) {
+        IDepartmentClient departmentClient = FeignBuilderFactory.createClient(IDepartmentClient.class, apiBasePath);
+        return departmentClient.findPaginationCustom("Basic " + p_BasicAuth, requestPaginationCustom);
     }
 }
